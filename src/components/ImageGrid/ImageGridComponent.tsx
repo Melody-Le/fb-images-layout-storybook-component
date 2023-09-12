@@ -31,12 +31,22 @@ const ImageItem = styled.img`
   height: 100%;
 `;
 
-const ImageWrap = styled.div<StyledComponentProps>`
-  min-width: 100%;
-  height: 100%;
-  overflow: hidden;
-  grid-column: auto / span ${(props) => (props.span ? props.span : 2)};
-`;
+// const ImageWrapTest = styled.div<StyledComponentProps>`
+//   min-width: 100%;
+//   height: 100%;
+//   overflow: hidden;
+//   grid-column: auto / span ${(props) => (props.span ? props.span : 2)};
+// `;
+
+const ImageWrap = styled("div")<StyledComponentProps>(() => ({
+  minWidth: "100%",
+  height: "100%",
+  overflow: "hidden",
+  gridColumn: "auto / span 2",
+  "&:nth-of-type(1), &:nth-of-type(2)": {
+    gridColumn: "auto / span 3",
+  },
+}));
 
 const ImageGrid = styled.div<StyledComponentProps>`
   display: grid;
@@ -70,10 +80,10 @@ const ImageGridComponent = ({
       }}
     >
       <ImageGrid height="20rem" width="30rem">
-        <ImageWrap span={3}>
+        <ImageWrap>
           <ImageItem src={images[1]} />
         </ImageWrap>
-        <ImageWrap span={3}>
+        <ImageWrap>
           <ImageItem src={images[2]} />
         </ImageWrap>
         <ImageWrap>
