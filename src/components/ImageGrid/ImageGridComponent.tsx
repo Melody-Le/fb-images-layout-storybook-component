@@ -1,5 +1,6 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { number } from "prop-types";
 
 export type Props = {};
 
@@ -22,6 +23,9 @@ interface StyledComponentProps {
   span?: number;
   height?: string;
   width?: string;
+  numberOfImgs?: number;
+  row?: number;
+  col?: number;
 }
 
 const ImageItem = styled.img`
@@ -31,11 +35,14 @@ const ImageItem = styled.img`
   height: 100%;
 `;
 
-// const ImageWrapTest = styled.div<StyledComponentProps>`
+// const ImageWrap = styled.div<StyledComponentProps>`
 //   min-width: 100%;
 //   height: 100%;
 //   overflow: hidden;
 //   grid-column: auto / span ${(props) => (props.span ? props.span : 2)};
+//   grid-column: auto/span 2;
+
+//   &:nth-of-type(1), &:nth-of-type(2): ${{ gridColumn: "auto/ span 3" }}
 // `;
 
 const ImageWrap = styled("div")(() => ({
@@ -48,10 +55,11 @@ const ImageWrap = styled("div")(() => ({
   },
 }));
 
+// FIXME: can not do props.numberOfImgs > 5 , it will show undifined
 const ImageGrid = styled.div<StyledComponentProps>`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(${(props) => props.col}, 1fr);
+  grid-template-rows: repeat(${(props) => props.row}, 1fr);
   height: ${(props) => (props.height ? props.height : "20rem")};
   width: ${(props) => (props.width ? props.width : "40rem")};
   gap: 0.5rem;
@@ -72,8 +80,23 @@ const ImageGridComponent = ({
     "https://i.pinimg.com/564x/9c/82/a0/9c82a08a4a0e3b581122ab2576f1c07d.jpg",
     "https://i.pinimg.com/564x/2b/7f/a9/2b7fa911454725f7fd5b9d2f4dd41046.jpg",
   ];
+  const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
+  useEffect(() => {
+    if (numberOfImgs > 4) {
+      setRowCol({ col: 6, row: 2 });
+    } else {
+      setRowCol({ col: 2, row: 6 / (numberOfImgs - 1) });
+    }
+  }, [numberOfImgs]);
+
   return (
-    <ImageGrid height={imagesGridHeight} width={imagesGridWidth}>
+    <ImageGrid
+      height={imagesGridHeight}
+      width={imagesGridWidth}
+      numberOfImgs={numberOfImgs}
+      row={rowCol.row}
+      col={rowCol.col}
+    >
       <ImageWrap>
         <ImageItem src={images[1]} />
       </ImageWrap>

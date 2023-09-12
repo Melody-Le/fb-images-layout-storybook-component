@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
   args: {
-    numberOfImgs: 2,
+    numberOfImgs: 5,
     showModal: false,
     imagesGridWidth: "30rem",
     imagesGridHeight: "20rem",
