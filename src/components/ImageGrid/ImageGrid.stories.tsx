@@ -12,8 +12,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Base: Story = {
-  args: {},
-};
-export const Yellow: Story = {
-  args: {},
+  args: {
+    numberOfImgs: 2,
+    showModal: false,
+    imagesGridWidth: 800,
+    imagesGridHeight: 500,
+  },
 };
