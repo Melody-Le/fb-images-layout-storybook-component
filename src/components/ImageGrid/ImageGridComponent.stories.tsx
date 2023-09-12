@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import ImageGrid from "./ImageGrid";
+import ImageGrid from "./ImageGridComponent";
 
 const meta: Meta<typeof ImageGrid> = {
   component: ImageGrid,
