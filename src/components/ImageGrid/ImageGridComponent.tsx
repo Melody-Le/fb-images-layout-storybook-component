@@ -7,8 +7,8 @@ interface ImageGridProps {
   className?: string;
   numberOfImgs?: number;
   showModal?: boolean;
-  imagesGridWidth?: number;
-  imagesGridHeight?: number;
+  imagesGridWidth?: string;
+  imagesGridHeight?: string;
   children?: ReactNode;
 }
 
@@ -38,7 +38,7 @@ const ImageItem = styled.img`
 //   grid-column: auto / span ${(props) => (props.span ? props.span : 2)};
 // `;
 
-const ImageWrap = styled("div")<StyledComponentProps>(() => ({
+const ImageWrap = styled("div")(() => ({
   minWidth: "100%",
   height: "100%",
   overflow: "hidden",
@@ -73,30 +73,23 @@ const ImageGridComponent = ({
     "https://i.pinimg.com/564x/2b/7f/a9/2b7fa911454725f7fd5b9d2f4dd41046.jpg",
   ];
   return (
-    <div
-      style={{
-        width: imagesGridWidth,
-        height: imagesGridHeight,
-      }}
-    >
-      <ImageGrid height="20rem" width="30rem">
-        <ImageWrap>
-          <ImageItem src={images[1]} />
-        </ImageWrap>
-        <ImageWrap>
-          <ImageItem src={images[2]} />
-        </ImageWrap>
-        <ImageWrap>
-          <ImageItem src={images[3]} />
-        </ImageWrap>
-        <ImageWrap>
-          <ImageItem src={images[4]} />
-        </ImageWrap>
-        <ImageWrap>
-          <ImageItem src={images[5]} />
-        </ImageWrap>
-      </ImageGrid>
-    </div>
+    <ImageGrid height={imagesGridHeight} width={imagesGridWidth}>
+      <ImageWrap>
+        <ImageItem src={images[1]} />
+      </ImageWrap>
+      <ImageWrap>
+        <ImageItem src={images[2]} />
+      </ImageWrap>
+      <ImageWrap>
+        <ImageItem src={images[3]} />
+      </ImageWrap>
+      <ImageWrap>
+        <ImageItem src={images[4]} />
+      </ImageWrap>
+      <ImageWrap>
+        <ImageItem src={images[5]} />
+      </ImageWrap>
+    </ImageGrid>
   );
 };
 export default ImageGridComponent;
