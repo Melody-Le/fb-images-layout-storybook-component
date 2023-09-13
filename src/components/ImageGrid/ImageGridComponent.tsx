@@ -2,7 +2,6 @@ import React, { FC, ReactNode, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { number } from "prop-types";
 
-export type Props = {};
 const exampleImages = [
   "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg",
   "https://i.pinimg.com/564x/57/37/e8/5737e8017b1c6946a6eb25b6db03a72e.jpg",
@@ -45,7 +44,6 @@ let ImageWrap = styled("div")<StyledComponentProps>((props) => ({
   overflow: "hidden",
 }));
 
-// FIXME: can not do props.numberOfImgs > 5 , it will show undifined
 const ImageGrid = styled.div<StyledComponentProps>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.col}, 1fr);
