@@ -75,10 +75,6 @@ const ImageGridComponent = ({
   // useEffect to setup all initial render
   useEffect(() => {
     images.length = numberOfImgs;
-    images = Array(numberOfImgs).fill(
-      "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg"
-    );
-
     if (numberOfImgs > 4) {
       setRowCol({ col: 6, row: 2 });
       ImageWrap = styled("div")<StyledComponentProps>((props) => ({
@@ -105,10 +101,12 @@ const ImageGridComponent = ({
       setRowCol({ col: 1, row: 1 });
     }
   }, [numberOfImgs, images]);
+
+  // to avoid bug undefined url when user change number of images
   useEffect(() => {
-    images.map((url, index) => {
-      images[3] = exampleImages[3];
-    });
+    for (let i = 0; i < numberOfImgs; i++) {
+      images[i] = exampleImages[i];
+    }
   }, [numberOfImgs]);
 
   return (
