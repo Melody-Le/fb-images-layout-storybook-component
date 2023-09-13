@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { number } from "prop-types";
 
 export type Props = {};
+const num = 3;
 
 interface ImageGridProps {
   className?: string;
@@ -26,6 +27,8 @@ interface StyledComponentProps {
   numberOfImgs?: number;
   row?: number;
   col?: number;
+  spanRow?: number;
+  spanCol?: number;
 }
 
 const ImageItem = styled.img`
@@ -34,26 +37,69 @@ const ImageItem = styled.img`
   min-width: 100%;
   height: 100%;
 `;
+// const ImageWrap = styled("div")<StyledComponentProps>({
+//   minWidth: "100%",
+//   height: "100%",
+//   overflow: "hidden",
+//   gridColumn: "auto / span 2",
+//   "&:nth-of-type(1), &:nth-of-type(2)": {
+//     gridColumn: "auto / span 3",
+//   },
+// });
 
-// const ImageWrap = styled.div<StyledComponentProps>`
-//   min-width: 100%;
-//   height: 100%;
-//   overflow: hidden;
-//   grid-column: auto / span ${(props) => (props.span ? props.span : 2)};
-//   grid-column: auto/span 2;
+// const ImageWrap = styled("div")(() => ({
+//   minWidth: "100%",
+//   height: "100%",
+//   overflow: "hidden",
+//   gridColumn: "auto / span 2",
+//   "&:nth-of-type(1), &:nth-of-type(2)": {
+//     gridColumn: "auto / span 3",
+//   },
+// }));
 
-//   &:nth-of-type(1), &:nth-of-type(2): ${{ gridColumn: "auto/ span 3" }}
-// `;
-
-const ImageWrap = styled("div")(() => ({
+let ImageWrap = styled("div")<StyledComponentProps>((props) => ({
   minWidth: "100%",
   height: "100%",
   overflow: "hidden",
-  gridColumn: "auto / span 2",
-  "&:nth-of-type(1), &:nth-of-type(2)": {
-    gridColumn: "auto / span 3",
+  // gridColumn: `auto/ span 2`,
+  // "&:nth-of-type(1), &:nth-of-type(2)": {
+  //   gridColumn: "auto / span 3",
+  // },
+
+  gridRow: `auto/ span ${props.spanRow}`,
+  "&:nth-of-type(1)": {
+    gridRow: "auto/ span 6",
   },
+
+  // "&:nth-of-type(1)": {
+  //   gridRow: `${(props: { numberOfImgs: number }) =>
+  //     props.numberOfImgs < 5 && "auto/ span 6"}`,
+  // },
 }));
+
+// const ImageWrap = styled("div")<StyledComponentProps>({
+//   minWidth: "100%",
+//   height: "100%",
+//   overflow: "hidden",
+//   gridColumn: "auto / span 2",
+//   "&:nth-of-type(1), &:nth-of-type(2)": {
+//     gridColumn: "auto / span 3",
+//   },
+//   "&:nth-of-type(1)": {
+//     gridRow: `${(props: { numberOfImgs: number }) =>
+//       props.numberOfImgs < 5 && "auto/ span 6"}`,
+//   },
+// });
+
+// const ImageWrap = styled("div")<StyledComponentProps>`
+//   minwidth: "100%";
+//   height: "100%";
+//   overflow: "hidden";
+//   grid-column: "auto / span 2";
+//   &:nth-of-type(1), &:nth-of-type(2): {
+//     gridColumn: "auto / span 3",
+//   },
+// `;
 
 // FIXME: can not do props.numberOfImgs > 5 , it will show undifined
 const ImageGrid = styled.div<StyledComponentProps>`
@@ -81,13 +127,37 @@ const ImageGridComponent = ({
     "https://i.pinimg.com/564x/2b/7f/a9/2b7fa911454725f7fd5b9d2f4dd41046.jpg",
   ];
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
+  const [span, setSpan] = useState({ col: 1, row: 1 });
+
   useEffect(() => {
     if (numberOfImgs > 4) {
       setRowCol({ col: 6, row: 2 });
+      setSpan({ col: 2, row: 1 });
+      ImageWrap = styled("div")<StyledComponentProps>((props) => ({
+        minWidth: "100%",
+        height: "100%",
+        overflow: "hidden",
+        gridColumn: `auto/ span 2`,
+        "&:nth-of-type(1), &:nth-of-type(2)": {
+          gridColumn: "auto / span 3",
+        },
+      }));
     } else {
-      setRowCol({ col: 2, row: 6 / (numberOfImgs - 1) });
+      setRowCol({ col: 2, row: 6 });
+      setSpan({ col: 1, row: 6 / (numberOfImgs - 1) });
+      ImageWrap = styled("div")<StyledComponentProps>((props) => ({
+        minWidth: "100%",
+        height: "100%",
+        overflow: "hidden",
+        gridRow: `auto/ span ${6 / (numberOfImgs - 1)}`,
+        "&:nth-of-type(1)": {
+          gridRow: "auto/ span 6",
+        },
+      }));
     }
   }, [numberOfImgs]);
+
+  useEffect(() => {}, [numberOfImgs]);
 
   return (
     <ImageGrid
@@ -96,6 +166,8 @@ const ImageGridComponent = ({
       numberOfImgs={numberOfImgs}
       row={rowCol.row}
       col={rowCol.col}
+      spanRow={span.row}
+      spanCol={span.col}
     >
       <ImageWrap>
         <ImageItem src={images[1]} />
