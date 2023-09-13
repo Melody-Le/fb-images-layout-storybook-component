@@ -3,6 +3,15 @@ import styled from "@emotion/styled";
 import { number } from "prop-types";
 
 export type Props = {};
+const exampleImages = [
+  "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg",
+  "https://i.pinimg.com/564x/57/37/e8/5737e8017b1c6946a6eb25b6db03a72e.jpg",
+  "https://i.pinimg.com/736x/55/ea/08/55ea0881688047362cb6d23f47166b65.jpg",
+  "https://i.pinimg.com/564x/48/40/05/4840054e287358f6b95e6dacfe395f2b.jpg",
+  "https://i.pinimg.com/564x/9c/82/a0/9c82a08a4a0e3b581122ab2576f1c07d.jpg",
+  "https://i.pinimg.com/564x/08/d1/67/08d167851acc6b5ca15785aab6825f23.jpg",
+  "https://i.pinimg.com/564x/4d/83/05/4d8305746c0a7fe3a5708ef300367aec.jpg",
+];
 
 interface ImageGridProps {
   className?: string;
@@ -45,6 +54,7 @@ const ImageGrid = styled.div<StyledComponentProps>`
   width: ${(props) => (props.width ? props.width : "40rem")};
   gap: 0.5rem;
 `;
+/*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({
   className = "",
@@ -62,7 +72,13 @@ const ImageGridComponent = ({
 }: ImageGridProps) => {
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
 
+  // useEffect to setup all initial render
   useEffect(() => {
+    images.length = numberOfImgs;
+    images = Array(numberOfImgs).fill(
+      "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg"
+    );
+
     if (numberOfImgs > 4) {
       setRowCol({ col: 6, row: 2 });
       ImageWrap = styled("div")<StyledComponentProps>((props) => ({
@@ -88,6 +104,11 @@ const ImageGridComponent = ({
     } else {
       setRowCol({ col: 1, row: 1 });
     }
+  }, [numberOfImgs, images]);
+  useEffect(() => {
+    images.map((url, index) => {
+      images[3] = exampleImages[3];
+    });
   }, [numberOfImgs]);
 
   return (
@@ -98,21 +119,6 @@ const ImageGridComponent = ({
       row={rowCol.row}
       col={rowCol.col}
     >
-      {/* <ImageWrap>
-        <ImageItem src={images[1]} />
-      </ImageWrap>
-      <ImageWrap>
-        <ImageItem src={images[2]} />
-      </ImageWrap>
-      <ImageWrap>
-        <ImageItem src={images[3]} />
-      </ImageWrap>
-      <ImageWrap>
-        <ImageItem src={images[4]} />
-      </ImageWrap>
-      <ImageWrap>
-        <ImageItem src={images[5]} />
-      </ImageWrap> */}
       {images.map((img, index) => (
         <ImageWrap>
           <ImageItem src={img} />
