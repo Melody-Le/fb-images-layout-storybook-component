@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 import { number } from "prop-types";
 
 export type Props = {};
-const num = 3;
 
 interface ImageGridProps {
   className?: string;
@@ -11,12 +10,6 @@ interface ImageGridProps {
   showModal?: boolean;
   imagesGridWidth?: string;
   imagesGridHeight?: string;
-  children?: ReactNode;
-}
-
-interface ImageWrapProps {
-  className?: string;
-  gridColumn?: string;
   children?: ReactNode;
 }
 
