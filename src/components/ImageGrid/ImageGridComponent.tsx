@@ -7,6 +7,7 @@ export type Props = {};
 interface ImageGridProps {
   className?: string;
   numberOfImgs?: number;
+  images?: Array<string>;
   showModal?: boolean;
   imagesGridWidth?: string;
   imagesGridHeight?: string;
@@ -48,18 +49,17 @@ const ImageGrid = styled.div<StyledComponentProps>`
 const ImageGridComponent = ({
   className = "",
   numberOfImgs = 1,
-  showModal = false,
-  imagesGridWidth,
-  imagesGridHeight,
-}: ImageGridProps) => {
-  const images = [
+  images = [
     "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg",
     "https://i.pinimg.com/564x/57/37/e8/5737e8017b1c6946a6eb25b6db03a72e.jpg",
     "https://i.pinimg.com/736x/55/ea/08/55ea0881688047362cb6d23f47166b65.jpg",
     "https://i.pinimg.com/564x/48/40/05/4840054e287358f6b95e6dacfe395f2b.jpg",
     "https://i.pinimg.com/564x/9c/82/a0/9c82a08a4a0e3b581122ab2576f1c07d.jpg",
-    "https://i.pinimg.com/564x/2b/7f/a9/2b7fa911454725f7fd5b9d2f4dd41046.jpg",
-  ];
+  ],
+  showModal = false,
+  imagesGridWidth,
+  imagesGridHeight,
+}: ImageGridProps) => {
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
 
   useEffect(() => {
@@ -98,7 +98,7 @@ const ImageGridComponent = ({
       row={rowCol.row}
       col={rowCol.col}
     >
-      <ImageWrap>
+      {/* <ImageWrap>
         <ImageItem src={images[1]} />
       </ImageWrap>
       <ImageWrap>
@@ -112,7 +112,12 @@ const ImageGridComponent = ({
       </ImageWrap>
       <ImageWrap>
         <ImageItem src={images[5]} />
-      </ImageWrap>
+      </ImageWrap> */}
+      {images.map((img, index) => (
+        <ImageWrap>
+          <ImageItem src={img} />
+        </ImageWrap>
+      ))}
     </ImageGrid>
   );
 };
