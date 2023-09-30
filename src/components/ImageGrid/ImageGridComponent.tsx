@@ -1,6 +1,8 @@
-import React, { FC, ReactNode, useState, useEffect } from "react";
+import { ReactNode, useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { number } from "prop-types";
+
+const breakpoints = [576, 768, 992, 1200];
+const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
 
 const exampleImages = [
   "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg",
@@ -13,12 +15,12 @@ const exampleImages = [
 ];
 
 interface ImageGridProps {
-  className?: string;
-  numberOfImgs?: number;
-  images?: Array<string>;
-  showModal?: boolean;
+  numberOfImgs: number;
+  images: Array<string>;
+  imagesGridHeight: string;
   imagesGridWidth?: string;
-  imagesGridHeight?: string;
+  showModal?: boolean;
+  className?: string;
   children?: ReactNode;
 }
 
@@ -29,6 +31,7 @@ interface StyledComponentProps {
   numberOfImgs?: number;
   row?: number;
   col?: number;
+  minWidth?: string;
 }
 
 const ImageItem = styled.img`
@@ -49,9 +52,27 @@ const ImageGrid = styled.div<StyledComponentProps>`
   grid-template-columns: repeat(${(props) => props.col}, 1fr);
   grid-template-rows: repeat(${(props) => props.row}, 1fr);
   height: ${(props) => (props.height ? props.height : "20rem")};
-  width: ${(props) => (props.width ? props.width : "40rem")};
-  gap: 0.5rem;
+  max-width: ${(props) => (props.width ? props.width : "")};
+  gap: 0.3rem;
+  margin: "0 auto";
+  background-color: "red";
+  padding: "1rem";
+  margin: "1rem";
+
+  ${mq[0]} {
+    gap: 0.4rem;
+  }
+  ${mq[1]} {
+    gap: 0.5rem;
+  }
+  ${mq[2]} {
+    gap: 0.6 rem;
+  }
+  ${mq[3]} {
+    gap: 0.8 rem;
+  }
 `;
+
 /*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({

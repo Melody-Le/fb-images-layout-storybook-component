@@ -22,7 +22,7 @@ export const Base: Story = {
       "https://i.pinimg.com/564x/9c/82/a0/9c82a08a4a0e3b581122ab2576f1c07d.jpg",
     ],
     showModal: false,
-    imagesGridWidth: "30rem",
+    imagesGridWidth: "",
     imagesGridHeight: "20rem",
   },
 };
