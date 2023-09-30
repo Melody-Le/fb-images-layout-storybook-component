@@ -7,21 +7,10 @@ const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
 const accessKey = "kne3nTv7__ntufHd-qCFdSEZifJvlmPDyOVwha9jWqU";
 const unsplashUrl = `https://api.unsplash.com/photos/?client_id=${accessKey}`;
 
-const exampleImages = [
-  "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg",
-  "https://i.pinimg.com/564x/57/37/e8/5737e8017b1c6946a6eb25b6db03a72e.jpg",
-  "https://i.pinimg.com/736x/55/ea/08/55ea0881688047362cb6d23f47166b65.jpg",
-  "https://i.pinimg.com/564x/48/40/05/4840054e287358f6b95e6dacfe395f2b.jpg",
-  "https://i.pinimg.com/564x/9c/82/a0/9c82a08a4a0e3b581122ab2576f1c07d.jpg",
-  "https://i.pinimg.com/564x/08/d1/67/08d167851acc6b5ca15785aab6825f23.jpg",
-  "https://i.pinimg.com/564x/4d/83/05/4d8305746c0a7fe3a5708ef300367aec.jpg",
-];
-
 interface ImageGridProps {
   numberOfImgs: number;
-  images: Array<string>;
   imagesGridHeight: string;
-  imagesGridWidth?: string;
+  imagesGridMaxWidth?: string;
   showModal?: boolean;
   className?: string;
   children?: ReactNode;
@@ -30,7 +19,7 @@ interface ImageGridProps {
 interface StyledComponentProps {
   span?: number;
   height?: string;
-  width?: string;
+  maxWidth?: string;
   numberOfImgs?: number;
   row?: number;
   col?: number;
@@ -55,13 +44,9 @@ const ImageGrid = styled.div<StyledComponentProps>`
   grid-template-columns: repeat(${(props) => props.col}, 1fr);
   grid-template-rows: repeat(${(props) => props.row}, 1fr);
   height: ${(props) => (props.height ? props.height : "20rem")};
-  max-width: ${(props) => (props.width ? props.width : "")};
+  max-width: ${(props) => (props.maxWidth ? props.maxWidth : "")};
   gap: 0.3rem;
-  margin: "0 auto";
-  background-color: "red";
-  padding: "1rem";
-  margin: "1rem";
-
+  margin: 0 auto;
   ${mq[0]} {
     gap: 0.4rem;
   }
@@ -81,15 +66,8 @@ const ImageGrid = styled.div<StyledComponentProps>`
 const ImageGridComponent = ({
   className = "",
   numberOfImgs = 1,
-  images = [
-    "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg",
-    "https://i.pinimg.com/564x/57/37/e8/5737e8017b1c6946a6eb25b6db03a72e.jpg",
-    "https://i.pinimg.com/736x/55/ea/08/55ea0881688047362cb6d23f47166b65.jpg",
-    "https://i.pinimg.com/564x/48/40/05/4840054e287358f6b95e6dacfe395f2b.jpg",
-    "https://i.pinimg.com/564x/9c/82/a0/9c82a08a4a0e3b581122ab2576f1c07d.jpg",
-  ],
   showModal = false,
-  imagesGridWidth,
+  imagesGridMaxWidth,
   imagesGridHeight,
 }: ImageGridProps) => {
   // Set State:
@@ -98,7 +76,7 @@ const ImageGridComponent = ({
 
   // useEffect to setup all initial render
   useEffect(() => {
-    images.length = numberOfImgs;
+    randomPhotos.length = numberOfImgs;
     if (numberOfImgs > 4) {
       setRowCol({ col: 6, row: 2 });
       ImageWrap = styled("div")<StyledComponentProps>((props) => ({
@@ -124,40 +102,53 @@ const ImageGridComponent = ({
     } else {
       setRowCol({ col: 1, row: 1 });
     }
-  }, [numberOfImgs, images]);
+  }, [numberOfImgs, randomPhotos]);
 
   // to avoid bug undefined url when user change number of images
-  useEffect(() => {
-    for (let i = 0; i < numberOfImgs; i++) {
-      images[i] = exampleImages[i];
-    }
-  }, [numberOfImgs]);
-
-  /*----------------------FETCH RANDOM IMAGES ---------------------- */
-  type ResponseFormat = {
+  type unsplashPhotoFortmat = {
     id: string;
     url: string;
     alt: string;
     urls: { regular: string };
     alt_description: string;
   };
+
   useEffect(() => {
     async function getData() {
       try {
         const response = await axios.get(unsplashUrl);
         const data = response.data; // this will return 10 results
-        // const slicedArray = data
-        //   .slice(0, 5)
-        //   .map(function (item: ResponseFormat) {
-        //     return {
-        //       id: item.id,
-        //       url: item.urls.regular,
-        //       alt: item.alt_description,
-        //     };
-        //   });
+        const slicedArray = data
+          .slice(0, numberOfImgs)
+          .map(function (item: unsplashPhotoFortmat) {
+            return {
+              id: item.id,
+              url: item.urls.regular,
+              alt: item.alt_description,
+            };
+          });
+        setRandoPhotos(slicedArray);
+      } catch (error) {}
+    }
+    getData();
+  }, [numberOfImgs]);
+
+  /*----------------------FETCH RANDOM IMAGES ---------------------- */
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const response = await axios.get(unsplashUrl);
+        const data = response.data; // this will return 10 results
         const slicedArray = data
           .slice(0, 5)
-          .map((item: ResponseFormat) => item.urls.regular);
+          .map(function (item: unsplashPhotoFortmat) {
+            return {
+              id: item.id,
+              url: item.urls.regular,
+              alt: item.alt_description,
+            };
+          });
         setRandoPhotos(slicedArray);
       } catch (error) {}
     }
@@ -167,15 +158,14 @@ const ImageGridComponent = ({
   return (
     <ImageGrid
       height={imagesGridHeight}
-      width={imagesGridWidth}
+      maxWidth={imagesGridMaxWidth}
       numberOfImgs={numberOfImgs}
       row={rowCol.row}
       col={rowCol.col}
     >
-      {randomPhotos.map((img, index) => (
+      {randomPhotos.map((photo: unsplashPhotoFortmat, index) => (
         <ImageWrap>
-          <ImageItem src={img} />
-          {/* <ImageItem src={photo.url} id={photo.id} alt={photo.alt} /> */}
+          <ImageItem src={photo.url || ""} alt={photo?.alt || ""} />
         </ImageWrap>
       ))}
     </ImageGrid>
