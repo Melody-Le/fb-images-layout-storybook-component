@@ -1,8 +1,11 @@
 import { ReactNode, useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import axios from "axios";
 
 const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
+const accessKey = "kne3nTv7__ntufHd-qCFdSEZifJvlmPDyOVwha9jWqU";
+const unsplashUrl = `https://api.unsplash.com/photos/?client_id=${accessKey}`;
 
 const exampleImages = [
   "https://i.pinimg.com/564x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg",
@@ -89,7 +92,9 @@ const ImageGridComponent = ({
   imagesGridWidth,
   imagesGridHeight,
 }: ImageGridProps) => {
+  // Set State:
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
+  const [randomPhotos, setRandoPhotos] = useState([]);
 
   // useEffect to setup all initial render
   useEffect(() => {
@@ -128,6 +133,37 @@ const ImageGridComponent = ({
     }
   }, [numberOfImgs]);
 
+  /*----------------------FETCH RANDOM IMAGES ---------------------- */
+  type ResponseFormat = {
+    id: string;
+    url: string;
+    alt: string;
+    urls: { regular: string };
+    alt_description: string;
+  };
+  useEffect(() => {
+    async function getData() {
+      try {
+        const response = await axios.get(unsplashUrl);
+        const data = response.data; // this will return 10 results
+        // const slicedArray = data
+        //   .slice(0, 5)
+        //   .map(function (item: ResponseFormat) {
+        //     return {
+        //       id: item.id,
+        //       url: item.urls.regular,
+        //       alt: item.alt_description,
+        //     };
+        //   });
+        const slicedArray = data
+          .slice(0, 5)
+          .map((item: ResponseFormat) => item.urls.regular);
+        setRandoPhotos(slicedArray);
+      } catch (error) {}
+    }
+    getData();
+  }, [numberOfImgs]);
+
   return (
     <ImageGrid
       height={imagesGridHeight}
@@ -136,9 +172,10 @@ const ImageGridComponent = ({
       row={rowCol.row}
       col={rowCol.col}
     >
-      {images.map((img, index) => (
+      {randomPhotos.map((img, index) => (
         <ImageWrap>
           <ImageItem src={img} />
+          {/* <ImageItem src={photo.url} id={photo.id} alt={photo.alt} /> */}
         </ImageWrap>
       ))}
     </ImageGrid>
