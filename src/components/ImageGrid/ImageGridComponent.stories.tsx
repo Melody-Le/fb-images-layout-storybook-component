@@ -15,7 +15,8 @@ export const Base: Story = {
   args: {
     numberOfImgs: 5,
     showModal: false,
-    imagesGridMaxWidth: "",
+    imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
+    className: "",
   },
 };

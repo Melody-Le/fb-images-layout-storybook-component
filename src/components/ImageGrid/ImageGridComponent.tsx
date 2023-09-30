@@ -113,6 +113,8 @@ const ImageGridComponent = ({
     alt_description: string;
   };
 
+  /*----------------------FETCH RANDOM IMAGES ---------------------- */
+
   useEffect(() => {
     async function getData() {
       try {
@@ -132,29 +134,6 @@ const ImageGridComponent = ({
     }
     getData();
   }, [numberOfImgs]);
-
-  /*----------------------FETCH RANDOM IMAGES ---------------------- */
-
-  useEffect(() => {
-    async function getData() {
-      try {
-        const response = await axios.get(unsplashUrl);
-        const data = response.data; // this will return 10 results
-        const slicedArray = data
-          .slice(0, 5)
-          .map(function (item: unsplashPhotoFortmat) {
-            return {
-              id: item.id,
-              url: item.urls.regular,
-              alt: item.alt_description,
-            };
-          });
-        setRandoPhotos(slicedArray);
-      } catch (error) {}
-    }
-    getData();
-  }, [numberOfImgs]);
-
   return (
     <ImageGrid
       height={imagesGridHeight}
@@ -162,6 +141,7 @@ const ImageGridComponent = ({
       numberOfImgs={numberOfImgs}
       row={rowCol.row}
       col={rowCol.col}
+      className={className}
     >
       {randomPhotos.map((photo: unsplashPhotoFortmat, index) => (
         <ImageWrap>
