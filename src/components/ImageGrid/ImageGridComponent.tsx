@@ -110,7 +110,6 @@ const ImageGridComponent = ({
     }
   }, [numberOfImgs, randomPhotos]);
 
-  // to avoid bug undefined url when user change number of images
   type unsplashPhotoFortmat = {
     id: string;
     url: string;
