@@ -16,14 +16,20 @@ interface ImageGridProps {
   children?: ReactNode;
 }
 
-interface StyledComponentProps {
+interface StyledImageWrap {
   span?: number;
+  minWidth?: string;
   height?: string;
-  maxWidth?: string;
-  numberOfImgs?: number;
   row?: number;
   col?: number;
-  minWidth?: string;
+}
+
+interface StyledImageGrid {
+  height: string;
+  numberOfImgs: number;
+  row: number;
+  col: number;
+  maxWidth?: string;
 }
 
 const ImageItem = styled.img`
@@ -33,13 +39,13 @@ const ImageItem = styled.img`
   height: 100%;
 `;
 
-let ImageWrap = styled("div")<StyledComponentProps>((props) => ({
+let ImageWrap = styled("div")<StyledImageWrap>((props) => ({
   minWidth: "100%",
   height: "100%",
   overflow: "hidden",
 }));
 
-const ImageGrid = styled.div<StyledComponentProps>`
+const ImageGrid = styled.div<StyledImageGrid>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.col}, 1fr);
   grid-template-rows: repeat(${(props) => props.row}, 1fr);
@@ -79,7 +85,7 @@ const ImageGridComponent = ({
     randomPhotos.length = numberOfImgs;
     if (numberOfImgs > 4) {
       setRowCol({ col: 6, row: 2 });
-      ImageWrap = styled("div")<StyledComponentProps>((props) => ({
+      ImageWrap = styled("div")<StyledImageWrap>((props) => ({
         minWidth: "100%",
         height: "100%",
         overflow: "hidden",
@@ -90,7 +96,7 @@ const ImageGridComponent = ({
       }));
     } else if (numberOfImgs > 1) {
       setRowCol({ col: 2, row: 6 });
-      ImageWrap = styled("div")<StyledComponentProps>((props) => ({
+      ImageWrap = styled("div")<StyledImageWrap>((props) => ({
         minWidth: "100%",
         height: "100%",
         overflow: "hidden",
