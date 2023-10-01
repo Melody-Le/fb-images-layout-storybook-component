@@ -41,6 +41,10 @@ let ImageWrap = styled("div")<StyledImageWrap>((props) => ({
   minWidth: "100%",
   height: "100%",
   overflow: "hidden",
+  position: "relative",
+  textAlign: "center",
+  color: "blue",
+  backgroundColor: "yellow",
 }));
 
 const ImageGrid = styled.div<StyledImageGrid>`
@@ -136,20 +140,45 @@ const ImageGridComponent = ({
     }
     getData();
   }, [numberOfImgs]);
+  /*----------------------RENDER ---------------------- */
+
   return (
-    <ImageGrid
-      height={imagesGridHeight}
-      maxWidth={imagesGridMaxWidth}
-      numberOfImgs={numberOfImgs}
-      row={rowCol.row}
-      col={rowCol.col}
-    >
-      {randomPhotos.map((photo: unsplashPhotoFortmat, index) => (
-        <ImageWrap>
-          <ImageItem src={photo.url || ""} alt={photo?.alt || ""} />
-        </ImageWrap>
-      ))}
-    </ImageGrid>
+    <div style={{ position: "relative" }}>
+      <ImageGrid
+        height={imagesGridHeight}
+        maxWidth={imagesGridMaxWidth}
+        numberOfImgs={numberOfImgs}
+        row={rowCol.row}
+        col={rowCol.col}
+      >
+        {numberOfImgs <= 5 &&
+          randomPhotos.map((photo: unsplashPhotoFortmat, index) => (
+            <ImageWrap style={{ position: "relative" }}>
+              <ImageItem src={photo.url || ""} alt={photo?.alt || ""} />
+            </ImageWrap>
+          ))}
+        {numberOfImgs > 5 &&
+          randomPhotos.slice(0, 5).map((photo: unsplashPhotoFortmat, index) => (
+            <ImageWrap style={{ position: "relative" }}>
+              <ImageItem src={photo.url || ""} alt={photo?.alt || ""} />
+              {index === 4 && (
+                <p
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    color: "white",
+                    fontSize: "1.5rem",
+                  }}
+                >
+                  + {numberOfImgs - 5}
+                </p>
+              )}
+            </ImageWrap>
+          ))}
+      </ImageGrid>
+    </div>
   );
 };
 export default ImageGridComponent;
