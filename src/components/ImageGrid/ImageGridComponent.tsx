@@ -12,8 +12,6 @@ interface ImageGridProps {
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
   showModal?: boolean;
-  className?: string;
-  children?: ReactNode;
 }
 
 interface StyledImageWrap {
@@ -70,7 +68,6 @@ const ImageGrid = styled.div<StyledImageGrid>`
 /*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({
-  className = "",
   numberOfImgs = 1,
   showModal = false,
   imagesGridMaxWidth,
@@ -146,7 +143,6 @@ const ImageGridComponent = ({
       numberOfImgs={numberOfImgs}
       row={rowCol.row}
       col={rowCol.col}
-      className={className}
     >
       {randomPhotos.map((photo: unsplashPhotoFortmat, index) => (
         <ImageWrap>
