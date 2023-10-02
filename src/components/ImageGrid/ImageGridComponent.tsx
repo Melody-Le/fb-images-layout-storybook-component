@@ -55,7 +55,7 @@ const ImageGridComponent = ({
     randomPhotos.length = numberOfImgs;
     if (numberOfImgs > 4) {
       setRowCol({ col: 6, row: 2 });
-      ImageWrap = styled("div")<StyledImageWrap>((props) => ({
+      ImageWrap = styled.div<StyledImageWrap>((props) => ({
         minWidth: "100%",
         height: "100%",
         overflow: "hidden",
@@ -66,7 +66,7 @@ const ImageGridComponent = ({
       }));
     } else if (numberOfImgs > 1) {
       setRowCol({ col: 2, row: 6 });
-      ImageWrap = styled("div")<StyledImageWrap>((props) => ({
+      ImageWrap = styled.div<StyledImageWrap>((props) => ({
         minWidth: "100%",
         height: "100%",
         overflow: "hidden",
@@ -119,6 +119,9 @@ const ImageGridComponent = ({
 };
 export default ImageGridComponent;
 
+/*----------------------EMOTION STYLED---------------------- */
+
+
 const ImageItem = styled.img`
   object-fit: cover;
   object-position: "center";
@@ -126,7 +129,7 @@ const ImageItem = styled.img`
   height: 100%;
 `;
 
-let ImageWrap = styled("div")<StyledImageWrap>((props) => ({
+let ImageWrap = styled.div<StyledImageWrap>((props) => ({
   minWidth: "100%",
   height: "100%",
   overflow: "hidden",
