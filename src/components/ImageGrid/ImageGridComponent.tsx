@@ -89,7 +89,7 @@ const ImageGridComponent = ({
         const data = response.data; // this will return 10 results
         const slicedArray = data
           .slice(0, numberOfImgs)
-          .map(function (item: UnsplashPhotoFortmat) {
+          .map((item: UnsplashPhotoFortmat) => {
             return {
               id: item.id,
               url: item.urls.regular,
