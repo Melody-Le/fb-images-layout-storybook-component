@@ -30,13 +30,13 @@ interface StyledImageGrid {
   maxWidth?: string;
 }
 
-type unsplashPhotoFortmat = {
+interface UnsplashPhotoFortmat {
   id: string;
   url: string;
   alt: string;
   urls: { regular: string };
   alt_description: string;
-};
+}
 
 /*----------------------MAIN COMPONENT---------------------- */
 
@@ -89,7 +89,7 @@ const ImageGridComponent = ({
         const data = response.data; // this will return 10 results
         const slicedArray = data
           .slice(0, numberOfImgs)
-          .map(function (item: unsplashPhotoFortmat) {
+          .map(function (item: UnsplashPhotoFortmat) {
             return {
               id: item.id,
               url: item.urls.regular,
@@ -109,7 +109,7 @@ const ImageGridComponent = ({
       row={rowCol.row}
       col={rowCol.col}
     >
-      {randomPhotos.map((photo: unsplashPhotoFortmat, index) => (
+      {randomPhotos.map((photo: UnsplashPhotoFortmat, index) => (
         <ImageWrap>
           <ImageItem src={photo.url || ""} alt={photo?.alt || ""} />
         </ImageWrap>
@@ -120,7 +120,6 @@ const ImageGridComponent = ({
 export default ImageGridComponent;
 
 /*----------------------EMOTION STYLED---------------------- */
-
 
 const ImageItem = styled.img`
   object-fit: cover;
