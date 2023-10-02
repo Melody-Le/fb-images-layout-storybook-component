@@ -83,7 +83,7 @@ const ImageGridComponent = ({
   /*----------------------FETCH RANDOM IMAGES ---------------------- */
 
   useEffect(() => {
-    async function getData() {
+    const getData = async () => {
       try {
         const response = await axios.get(unsplashUrl);
         const data = response.data; // this will return 10 results
@@ -98,7 +98,7 @@ const ImageGridComponent = ({
           });
         setRandoPhotos(slicedArray);
       } catch (error) {}
-    }
+    };
     getData();
   }, [numberOfImgs]);
   return (
