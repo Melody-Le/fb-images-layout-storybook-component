@@ -30,40 +30,13 @@ interface StyledImageGrid {
   maxWidth?: string;
 }
 
-const ImageItem = styled.img`
-  object-fit: cover;
-  object-position: "center";
-  min-width: 100%;
-  height: 100%;
-`;
-
-let ImageWrap = styled("div")<StyledImageWrap>((props) => ({
-  minWidth: "100%",
-  height: "100%",
-  overflow: "hidden",
-}));
-
-const ImageGrid = styled.div<StyledImageGrid>`
-  display: grid;
-  grid-template-columns: repeat(${(props) => props.col}, 1fr);
-  grid-template-rows: repeat(${(props) => props.row}, 1fr);
-  height: ${(props) => (props.height ? props.height : "20rem")};
-  max-width: ${(props) => (props.maxWidth ? props.maxWidth : "")};
-  gap: 0.3rem;
-  margin: 0 auto;
-  ${mq[0]} {
-    gap: 0.4rem;
-  }
-  ${mq[1]} {
-    gap: 0.5rem;
-  }
-  ${mq[2]} {
-    gap: 0.6 rem;
-  }
-  ${mq[3]} {
-    gap: 0.8 rem;
-  }
-`;
+type unsplashPhotoFortmat = {
+  id: string;
+  url: string;
+  alt: string;
+  urls: { regular: string };
+  alt_description: string;
+};
 
 /*----------------------MAIN COMPONENT---------------------- */
 
@@ -107,14 +80,6 @@ const ImageGridComponent = ({
     }
   }, [numberOfImgs, randomPhotos]);
 
-  type unsplashPhotoFortmat = {
-    id: string;
-    url: string;
-    alt: string;
-    urls: { regular: string };
-    alt_description: string;
-  };
-
   /*----------------------FETCH RANDOM IMAGES ---------------------- */
 
   useEffect(() => {
@@ -153,3 +118,38 @@ const ImageGridComponent = ({
   );
 };
 export default ImageGridComponent;
+
+const ImageItem = styled.img`
+  object-fit: cover;
+  object-position: "center";
+  min-width: 100%;
+  height: 100%;
+`;
+
+let ImageWrap = styled("div")<StyledImageWrap>((props) => ({
+  minWidth: "100%",
+  height: "100%",
+  overflow: "hidden",
+}));
+
+const ImageGrid = styled.div<StyledImageGrid>`
+  display: grid;
+  grid-template-columns: repeat(${(props) => props.col}, 1fr);
+  grid-template-rows: repeat(${(props) => props.row}, 1fr);
+  height: ${(props) => (props.height ? props.height : "20rem")};
+  max-width: ${(props) => (props.maxWidth ? props.maxWidth : "")};
+  gap: 0.3rem;
+  margin: 0 auto;
+  ${mq[0]} {
+    gap: 0.4rem;
+  }
+  ${mq[1]} {
+    gap: 0.5rem;
+  }
+  ${mq[2]} {
+    gap: 0.6 rem;
+  }
+  ${mq[3]} {
+    gap: 0.8 rem;
+  }
+`;
