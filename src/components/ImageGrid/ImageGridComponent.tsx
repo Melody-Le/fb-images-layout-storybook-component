@@ -111,7 +111,10 @@ const ImageGridComponent = ({
     >
       {randomPhotos.map((photo: UnsplashPhotoFortmat, index) => (
         <ImageWrap>
-          <ImageItem src={photo.url || ""} alt={photo?.alt || ""} />
+          <ImageItem
+            src={photo.url || "default.jpg"}
+            alt={photo?.alt || "photo"}
+          />
         </ImageWrap>
       ))}
     </ImageGrid>
