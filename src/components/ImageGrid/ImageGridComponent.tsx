@@ -97,7 +97,9 @@ const ImageGridComponent = ({
             };
           });
         setRandoPhotos(slicedArray);
-      } catch (error) {}
+      } catch (error) {
+        console.log("Error: ", error);
+      }
     };
     getData();
   }, [numberOfImgs]);
