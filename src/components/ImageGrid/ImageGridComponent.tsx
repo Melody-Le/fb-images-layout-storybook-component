@@ -1,12 +1,10 @@
 import { ReactNode, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
+import useUnsplashApi from "../../hooks/useUnsplashApi";
 
 const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
-const accessKey = "kne3nTv7__ntufHd-qCFdSEZifJvlmPDyOVwha9jWqU";
-const unsplashUrl = `https://api.unsplash.com/photos/?client_id=${accessKey}`;
-
 interface ImageGridProps {
   numberOfImgs: number;
   imagesGridHeight: string;
@@ -83,25 +81,11 @@ const ImageGridComponent = ({
   /*----------------------FETCH RANDOM IMAGES ---------------------- */
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(unsplashUrl);
-        const data = response.data; // this will return 10 results
-        const slicedArray = data
-          .slice(0, numberOfImgs)
-          .map((item: UnsplashPhotoFortmat) => {
-            return {
-              id: item.id,
-              url: item.urls.regular,
-              alt: item.alt_description,
-            };
-          });
-        setRandoPhotos(slicedArray);
-      } catch (error) {
-        console.log("Error: ", error);
-      }
+    const getUnsplashPhotos = async () => {
+      const photos = await useUnsplashApi(numberOfImgs);
+      setRandoPhotos(photos);
     };
-    getData();
+    getUnsplashPhotos();
   }, [numberOfImgs]);
   return (
     <ImageGrid
