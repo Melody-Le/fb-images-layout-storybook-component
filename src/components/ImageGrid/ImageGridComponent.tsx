@@ -1,7 +1,7 @@
 import { ReactNode, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
-import useUnsplashApi from "../../hooks/useUnsplashApi";
+import UseUnsplashApi from "../../hooks/useUnsplashApi";
 
 const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
@@ -82,7 +82,7 @@ const ImageGridComponent = ({
 
   useEffect(() => {
     const getUnsplashPhotos = async () => {
-      const photos = await useUnsplashApi(numberOfImgs);
+      const photos = await UseUnsplashApi(numberOfImgs);
       setRandoPhotos(photos);
     };
     getUnsplashPhotos();

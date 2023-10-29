@@ -12,7 +12,7 @@ interface UnsplashPhotoFortmat {
   alt_description: string;
 }
 
-const useUnsplashApi = async (numberOfImgs: number) => {
+const UseUnsplashApi = async (numberOfImgs: number) => {
   try {
     const response = await axios.get(unsplashUrl);
     const data = response.data; // this will return 10 results
@@ -31,4 +31,4 @@ const useUnsplashApi = async (numberOfImgs: number) => {
   }
 };
 
-export default useUnsplashApi;
+export default UseUnsplashApi;
