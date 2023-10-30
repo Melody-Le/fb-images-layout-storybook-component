@@ -10,6 +10,7 @@ interface ImageGridProps {
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
   showModal?: boolean;
+  images: [string];
 }
 
 interface StyledImageWrap {
@@ -26,6 +27,7 @@ interface StyledImageGrid {
   row: number;
   col: number;
   maxWidth?: string;
+  images: [string];
 }
 
 interface UnsplashPhotoFortmat {
@@ -43,6 +45,7 @@ const ImageGridComponent = ({
   showModal = false,
   imagesGridMaxWidth,
   imagesGridHeight,
+  images = [""],
 }: ImageGridProps) => {
   // Set State:
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
@@ -87,6 +90,7 @@ const ImageGridComponent = ({
     };
     getUnsplashPhotos();
   }, [numberOfImgs]);
+
   return (
     <ImageGrid
       height={imagesGridHeight}
@@ -94,8 +98,9 @@ const ImageGridComponent = ({
       numberOfImgs={numberOfImgs}
       row={rowCol.row}
       col={rowCol.col}
+      images={images}
     >
-      {randomPhotos.map((photo: UnsplashPhotoFortmat, index) => (
+      {images.map((photo: UnsplashPhotoFortmat, index) => (
         <ImageWrap>
           <ImageItem
             src={photo.url || "default.jpg"}
