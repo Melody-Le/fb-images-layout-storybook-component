@@ -5,6 +5,7 @@ import ImageGrid from "./ImageGridComponent";
 
 const meta: Meta<typeof ImageGrid> = {
   component: ImageGrid,
+  render: (args, { loaded: { images } }) => <ImageGrid {...args} {...images} />,
   title: "ImageGrid",
   tags: ["autodocs"],
 };
@@ -23,6 +24,5 @@ export const Base: Story = {
     showModal: false,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
-    images: { loaded: { ...images } },
   },
 };

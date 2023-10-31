@@ -100,7 +100,7 @@ const ImageGridComponent = ({
       col={rowCol.col}
       images={images}
     >
-      {images.map((photo: UnsplashPhotoFortmat, index) => (
+      {randomPhotos.map((photo: UnsplashPhotoFortmat, index) => (
         <ImageWrap>
           <ImageItem
             src={photo.url || "default.jpg"}
