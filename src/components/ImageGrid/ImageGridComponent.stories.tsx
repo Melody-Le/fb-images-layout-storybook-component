@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {
   loaders: [
     async () => ({
-      images: await UseUnsplashApi(1),
+      images: await UseUnsplashApi(5),
     }),
   ],
   args: {

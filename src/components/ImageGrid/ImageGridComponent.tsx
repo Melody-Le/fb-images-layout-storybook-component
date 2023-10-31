@@ -1,7 +1,7 @@
 import { ReactNode, useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import axios from "axios";
-import UseUnsplashApi from "../../hooks/useUnsplashApi";
+import useUnsplashApi from "../../hooks/useUnsplashApi";
 
 const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
@@ -10,7 +10,6 @@ interface ImageGridProps {
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
   showModal?: boolean;
-  images: [string];
 }
 
 interface StyledImageWrap {
@@ -27,7 +26,6 @@ interface StyledImageGrid {
   row: number;
   col: number;
   maxWidth?: string;
-  images: [string];
 }
 
 interface UnsplashPhotoFortmat {
@@ -45,8 +43,8 @@ const ImageGridComponent = ({
   showModal = false,
   imagesGridMaxWidth,
   imagesGridHeight,
-  images = [""],
-}: ImageGridProps) => {
+}: // images = ["hahadd"],
+ImageGridProps) => {
   // Set State:
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
   const [randomPhotos, setRandoPhotos] = useState([]);
@@ -83,32 +81,33 @@ const ImageGridComponent = ({
 
   /*----------------------FETCH RANDOM IMAGES ---------------------- */
 
-  useEffect(() => {
-    const getUnsplashPhotos = async () => {
-      const photos = await UseUnsplashApi(numberOfImgs);
-      setRandoPhotos(photos);
-    };
-    getUnsplashPhotos();
-  }, [numberOfImgs]);
+  // useEffect(() => {
+  //   const getUnsplashPhotos = async () => {
+  //     const photos = await useUnsplashApi(numberOfImgs);
+  //     setRandoPhotos(photos);
+  //   };
+  //   getUnsplashPhotos();
+  // }, [numberOfImgs]);
 
   return (
-    <ImageGrid
-      height={imagesGridHeight}
-      maxWidth={imagesGridMaxWidth}
-      numberOfImgs={numberOfImgs}
-      row={rowCol.row}
-      col={rowCol.col}
-      images={images}
-    >
-      {randomPhotos.map((photo: UnsplashPhotoFortmat, index) => (
-        <ImageWrap>
-          <ImageItem
-            src={photo.url || "default.jpg"}
-            alt={photo?.alt || "photo"}
-          />
-        </ImageWrap>
-      ))}
-    </ImageGrid>
+    // <ImageGrid
+    //   height={imagesGridHeight}
+    //   maxWidth={imagesGridMaxWidth}
+    //   numberOfImgs={numberOfImgs}
+    //   row={rowCol.row}
+    //   col={rowCol.col}
+    //   images={images}
+    // >
+    //   {images.map((photo: UnsplashPhotoFortmat, index) => (
+    //     <ImageWrap>
+    //       <ImageItem
+    //         src={photo.url || "default.jpg"}
+    //         alt={photo?.alt || "photo"}
+    //       />
+    //     </ImageWrap>
+    //   ))}
+    // </ImageGrid>
+    <h1>hoa</h1>
   );
 };
 export default ImageGridComponent;
