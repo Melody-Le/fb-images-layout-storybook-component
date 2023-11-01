@@ -1,5 +1,4 @@
 import axios from "axios";
-import { ReactNode, useState, useEffect } from "react";
 
 const accessKey = "kne3nTv7__ntufHd-qCFdSEZifJvlmPDyOVwha9jWqU";
 const unsplashUrl = `https://api.unsplash.com/photos/?client_id=${accessKey}`;
@@ -12,19 +11,17 @@ interface UnsplashPhotoFortmat {
   alt_description: string;
 }
 
-const useUnsplashApi = async (numberOfImgs: number) => {
+const useUnsplashApi = async () => {
   try {
     const response = await axios.get(unsplashUrl);
     const data = response.data; // this will return 10 results
-    const slicedArray = data
-      .slice(0, numberOfImgs)
-      .map((item: UnsplashPhotoFortmat) => {
-        return {
-          id: item.id,
-          url: item.urls.regular,
-          alt: item.alt_description,
-        };
-      });
+    const slicedArray = data.map((item: UnsplashPhotoFortmat) => {
+      return {
+        id: item.id,
+        url: item.urls.regular,
+        alt: item.alt_description,
+      };
+    });
     return slicedArray;
   } catch (error) {
     console.log("Error: ", error);

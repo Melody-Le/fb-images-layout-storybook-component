@@ -1,10 +1,9 @@
-import { ReactNode, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import axios from "axios";
-import useUnsplashApi from "../../hooks/useUnsplashApi";
 
 const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
+
 interface ImageGridProps {
   numberOfImgs: number;
   imagesGridHeight: string;
@@ -33,8 +32,6 @@ interface UnsplashPhotoFortmat {
   id: string;
   url: string;
   alt: string;
-  urls: { regular: string };
-  alt_description: string;
 }
 
 /*----------------------MAIN COMPONENT---------------------- */
@@ -45,18 +42,15 @@ const ImageGridComponent = ({
   imagesGridMaxWidth,
   imagesGridHeight,
   images,
-}: // images = ["hahadd"],
-ImageGridProps) => {
+}: ImageGridProps) => {
   // Set State:
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
-  const [randomPhotos, setRandoPhotos] = useState([]);
 
   // useEffect to setup all initial render
   useEffect(() => {
-    randomPhotos.length = numberOfImgs;
     if (numberOfImgs > 4) {
       setRowCol({ col: 6, row: 2 });
-      ImageWrap = styled.div<StyledImageWrap>((props) => ({
+      ImageWrap = styled.div<StyledImageWrap>(() => ({
         minWidth: "100%",
         height: "100%",
         overflow: "hidden",
@@ -67,7 +61,7 @@ ImageGridProps) => {
       }));
     } else if (numberOfImgs > 1) {
       setRowCol({ col: 2, row: 6 });
-      ImageWrap = styled.div<StyledImageWrap>((props) => ({
+      ImageWrap = styled.div<StyledImageWrap>(() => ({
         minWidth: "100%",
         height: "100%",
         overflow: "hidden",
@@ -79,37 +73,29 @@ ImageGridProps) => {
     } else {
       setRowCol({ col: 1, row: 1 });
     }
-  }, [numberOfImgs, randomPhotos]);
+  }, [numberOfImgs]);
 
   /*----------------------FETCH RANDOM IMAGES ---------------------- */
 
-  // useEffect(() => {
-  //   const getUnsplashPhotos = async () => {
-  //     const photos = await useUnsplashApi(numberOfImgs);
-  //     setRandoPhotos(photos);
-  //   };
-  //   getUnsplashPhotos();
-  // }, [numberOfImgs]);
-
   return (
-    // <ImageGrid
-    //   height={imagesGridHeight}
-    //   maxWidth={imagesGridMaxWidth}
-    //   numberOfImgs={numberOfImgs}
-    //   row={rowCol.row}
-    //   col={rowCol.col}
-    //   images={images}
-    // >
-    //   {images.map((photo: UnsplashPhotoFortmat, index) => (
-    //     <ImageWrap>
-    //       <ImageItem
-    //         src={photo.url || "default.jpg"}
-    //         alt={photo?.alt || "photo"}
-    //       />
-    //     </ImageWrap>
-    //   ))}
-    // </ImageGrid>
-    <h1>{images[0].alt}</h1>
+    <ImageGrid
+      height={imagesGridHeight}
+      maxWidth={imagesGridMaxWidth}
+      numberOfImgs={numberOfImgs}
+      row={rowCol.row}
+      col={rowCol.col}
+    >
+      {images
+        .slice(0, numberOfImgs)
+        .map((photo: UnsplashPhotoFortmat, index) => (
+          <ImageWrap>
+            <ImageItem
+              src={photo.url || "default.jpg"}
+              alt={photo?.alt || "photo"}
+            />
+          </ImageWrap>
+        ))}
+    </ImageGrid>
   );
 };
 export default ImageGridComponent;

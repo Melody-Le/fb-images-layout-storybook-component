@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import UseUnsplashApi from "../../hooks/useUnsplashApi";
-import fetch from "node-fetch";
 
 import ImageGrid from "./ImageGridComponent";
 
@@ -19,7 +18,7 @@ type Story = StoryObj<typeof meta>;
 export const Base: Story = {
   loaders: [
     async () => ({
-      images: await UseUnsplashApi(5),
+      images: await UseUnsplashApi(),
     }),
   ],
   args: {
