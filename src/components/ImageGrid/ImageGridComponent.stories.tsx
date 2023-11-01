@@ -1,11 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import UseUnsplashApi from "../../hooks/useUnsplashApi";
+import fetch from "node-fetch";
 
 import ImageGrid from "./ImageGridComponent";
 
 const meta: Meta<typeof ImageGrid> = {
   component: ImageGrid,
-  render: (args, { loaded: { images } }) => <ImageGrid {...args} {...images} />,
+  render: (args, { loaded: { images } }) => (
+    <ImageGrid {...args} images={images} />
+  ),
   title: "ImageGrid",
   tags: ["autodocs"],
 };

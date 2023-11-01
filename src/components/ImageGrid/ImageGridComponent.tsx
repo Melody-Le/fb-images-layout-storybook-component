@@ -10,6 +10,7 @@ interface ImageGridProps {
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
   showModal?: boolean;
+  images: { id: string; url: string; alt: string }[];
 }
 
 interface StyledImageWrap {
@@ -43,6 +44,7 @@ const ImageGridComponent = ({
   showModal = false,
   imagesGridMaxWidth,
   imagesGridHeight,
+  images,
 }: // images = ["hahadd"],
 ImageGridProps) => {
   // Set State:
@@ -107,7 +109,7 @@ ImageGridProps) => {
     //     </ImageWrap>
     //   ))}
     // </ImageGrid>
-    <h1>hoa</h1>
+    <h1>{images[0].alt}</h1>
   );
 };
 export default ImageGridComponent;
