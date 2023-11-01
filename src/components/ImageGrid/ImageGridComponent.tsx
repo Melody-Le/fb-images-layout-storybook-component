@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
-const breakpoints = [576, 768, 992, 1200];
-const mq = breakpoints.map((bp) => `@media (min-width: ${bp}px)`);
-
 interface ImageGridProps {
   numberOfImgs: number;
   imagesGridHeight: string;
@@ -142,6 +139,13 @@ let ImageWrap = styled.div<StyledImageWrap>((props) => ({
   backgroundColor: "yellow",
 }));
 
+enum BreakPoints {
+  small = `@media (min-width: 576px)`,
+  tablet = `@media (min-width: 768px)`,
+  large = `@media (min-width: 992px)`,
+  wide = `@media (min-width: 1200px)`,
+}
+
 const ImageGrid = styled.div<StyledImageGrid>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.col}, 1fr);
@@ -150,16 +154,16 @@ const ImageGrid = styled.div<StyledImageGrid>`
   max-width: ${(props) => (props.maxWidth ? props.maxWidth : "")};
   gap: 0.3rem;
   margin: 0 auto;
-  ${mq[0]} {
+  ${BreakPoints.small} {
     gap: 0.4rem;
   }
-  ${mq[1]} {
+  ${BreakPoints.tablet} {
     gap: 0.5rem;
   }
-  ${mq[2]} {
+  ${BreakPoints.large} {
     gap: 0.6 rem;
   }
-  ${mq[3]} {
+  ${BreakPoints.wide} {
     gap: 0.8 rem;
   }
 `;
