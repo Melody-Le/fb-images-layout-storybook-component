@@ -75,8 +75,6 @@ const ImageGridComponent = ({
     }
   }, [numberOfImgs]);
 
-  /*----------------------FETCH RANDOM IMAGES ---------------------- */
-
   return (
     <ImageGrid
       height={imagesGridHeight}
@@ -85,14 +83,39 @@ const ImageGridComponent = ({
       row={rowCol.row}
       col={rowCol.col}
     >
-      {images
-        .slice(0, numberOfImgs)
-        .map((photo: UnsplashPhotoFortmat, index) => (
-          <ImageWrap>
+      {numberOfImgs <= 5 &&
+        images
+          .slice(0, numberOfImgs)
+          .map((photo: UnsplashPhotoFortmat, index) => (
+            <ImageWrap>
+              <ImageItem
+                src={photo.url || "default.jpg"}
+                alt={photo?.alt || "photo"}
+              />
+            </ImageWrap>
+          ))}
+
+      {numberOfImgs > 5 &&
+        images.slice(0, 5).map((photo: UnsplashPhotoFortmat, index) => (
+          <ImageWrap style={{ position: "relative" }}>
             <ImageItem
               src={photo.url || "default.jpg"}
               alt={photo?.alt || "photo"}
             />
+            {index === 4 && (
+              <p
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  color: "white",
+                  fontSize: "1.5rem",
+                }}
+              >
+                + {numberOfImgs - 5}
+              </p>
+            )}
           </ImageWrap>
         ))}
     </ImageGrid>
@@ -113,6 +136,10 @@ let ImageWrap = styled.div<StyledImageWrap>((props) => ({
   minWidth: "100%",
   height: "100%",
   overflow: "hidden",
+  position: "relative",
+  textAlign: "center",
+  color: "blue",
+  backgroundColor: "yellow",
 }));
 
 const ImageGrid = styled.div<StyledImageGrid>`
