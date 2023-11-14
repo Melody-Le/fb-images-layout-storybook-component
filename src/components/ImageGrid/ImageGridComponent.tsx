@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
 interface ImageGridProps {
-  numberOfImgs: number;
+  // numberOfImgs: number;
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
   showModal?: boolean;
@@ -34,7 +34,7 @@ interface UnsplashPhotoFortmat {
 /*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({
-  numberOfImgs = 1,
+  // numberOfImgs = 1,
   showModal = false,
   imagesGridMaxWidth,
   imagesGridHeight,
@@ -42,6 +42,8 @@ const ImageGridComponent = ({
 }: ImageGridProps) => {
   // Set State:
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
+
+  const numberOfImgs = images.length;
 
   // useEffect to setup all initial render
   useEffect(() => {
