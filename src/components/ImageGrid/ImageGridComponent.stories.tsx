@@ -25,14 +25,14 @@ export const Base: Story = {
     }),
   ],
   args: {
-    // numberOfImgs: 9,
     showModal: false,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
-  // play: async ({canvasElement}) => {
-  //   const canvas = ithi
-  // }
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const image = canvas.getByRole("image",)
+  },
 };
 export const OneImage: Story = {
   loaders: [
