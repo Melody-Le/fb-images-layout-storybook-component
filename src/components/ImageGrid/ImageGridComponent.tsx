@@ -73,6 +73,14 @@ const ImageGridComponent = ({
       setRowCol({ col: 1, row: 1 });
     }
   }, [numberOfImgs]);
+  // close Carousel when user press esc
+  useEffect(() => {
+    const keydownHandler = (evnt: KeyboardEvent) => {
+      evnt.key === "Escape" && setShowCarousel(false);
+    };
+    document.addEventListener("keydown", keydownHandler);
+    return () => document.removeEventListener("keydown", keydownHandler);
+  });
 
   const useCarousel = () => {
     showModal && setShowCarousel(true);
@@ -96,12 +104,8 @@ const ImageGridComponent = ({
         <>
           <div
             style={{
-              // width: "800px",
-              // aspectRatio: "1:1",
               height: "80vh",
               maxWidth: "90%",
-              // width: "100%",
-              // height: "400px",
               margin: "0 auto",
               cursor: "pointer",
             }}
