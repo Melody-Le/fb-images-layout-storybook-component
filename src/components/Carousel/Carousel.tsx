@@ -172,6 +172,13 @@ const IndicatorImg = styled.img`
   box-shadow: 0px 0px 5px #555;
   border: 2px black solid;
   border-radius: 0.5rem;
+  transition: scale 100ms ease-in-out;
+  &:hover {
+    scale: 1.05;
+    filter: saturate(0) brightness(0.7) contrast(3);
+    mix-blend-mode: multiply;
+    filter: grayscale(0);
+  }
 `;
 const IndicatorImgInactive = styled(IndicatorImg)`
   -webkit-filter: grayscale(100%);

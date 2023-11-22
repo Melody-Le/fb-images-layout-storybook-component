@@ -34,7 +34,7 @@ interface UnsplashPhotoFortmat {
 /*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({
-  showModal = false,
+  showModal = true,
   imagesGridMaxWidth,
   imagesGridHeight,
   images,
