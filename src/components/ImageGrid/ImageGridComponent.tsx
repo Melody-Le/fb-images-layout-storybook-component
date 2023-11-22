@@ -85,11 +85,12 @@ const ImageGridComponent = ({
         <>
           <div
             style={{
-              maxWidth: "600px",
-              width: "100%",
-              height: "400px",
+              // width: "800px",
+              // aspectRatio: "1:1",
+              height: "80vh",
+              // width: "100%",
+              // height: "400px",
               margin: "0 auto",
-              border: "1px solid black",
             }}
           >
             <Carousel imgList={images} />
@@ -97,7 +98,7 @@ const ImageGridComponent = ({
         </>
       ) : (
         <ImageGrid
-          height={imagesGridHeight}   
+          height={imagesGridHeight}
           maxWidth={imagesGridMaxWidth}
           numberOfImgs={numberOfImgs}
           row={rowCol.row}
