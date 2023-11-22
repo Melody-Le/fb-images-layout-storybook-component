@@ -88,11 +88,6 @@ function Carousel({ imgList, closeCarousel }: ImageProps) {
         }}
       >
         {imgList.map((item, index) =>
-          // <IndicatorImg
-          //   key={index}
-          //   src={item.url}
-          //   onClick={() => setImgIndex(index)}
-          // />
           index === imgIndex ? (
             <IndicatorImg
               key={index}

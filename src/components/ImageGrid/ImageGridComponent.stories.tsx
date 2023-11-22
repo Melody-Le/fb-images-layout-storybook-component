@@ -86,28 +86,7 @@ export const FourImages: Story = {
 export const FiveImages: Story = {
   loaders: [
     async () => ({
-      images: [
-        {
-          url: "https://i.pinimg.com/736x/0f/71/0b/0f710bb81c2ff1aff8976239c18acfd2.jpg",
-          alt: "1",
-        },
-        {
-          url: "https://i.pinimg.com/564x/4d/e7/6a/4de76a9aef8d030d79ed0138972cc663.jpg",
-          alt: "2",
-        },
-        {
-          url: "https://images.pexels.com/photos/1117276/pexels-photo-1117276.jpeg",
-          alt: "3",
-        },
-        {
-          url: "https://images.pexels.com/photos/1343337/pexels-photo-1343337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          alt: "4",
-        },
-        {
-          url: "https://images.pexels.com/photos/1034466/pexels-photo-1034466.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-          alt: "2",
-        },
-      ],
+      images: await UseUnsplashApi(5),
     }),
   ],
   args: {
