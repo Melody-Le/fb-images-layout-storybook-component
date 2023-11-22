@@ -42,6 +42,7 @@ const ImageGridComponent = ({
 }: ImageGridProps) => {
   // Set State:
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
+  const [showCarousel, setShowCarousel] = useState(false);
 
   const numberOfImgs = images.length;
 
@@ -74,50 +75,62 @@ const ImageGridComponent = ({
     }
   }, [numberOfImgs]);
 
-  return (
-    <ImageGrid
-      height={imagesGridHeight}
-      maxWidth={imagesGridMaxWidth}
-      numberOfImgs={numberOfImgs}
-      row={rowCol.row}
-      col={rowCol.col}
-    >
-      {numberOfImgs <= 5 &&
-        images
-          .slice(0, numberOfImgs)
-          .map((photo: UnsplashPhotoFortmat, index) => (
-            <ImageWrap>
-              <ImageItem
-                src={photo.url || "default.jpg"}
-                alt={photo?.alt || "photo"}
-              />
-            </ImageWrap>
-          ))}
+  const useCarousel = () => {
+    setShowCarousel(true);
+  };
 
-      {numberOfImgs > 5 &&
-        images.slice(0, 5).map((photo: UnsplashPhotoFortmat, index) => (
-          <ImageWrap style={{ position: "relative" }}>
-            <ImageItem
-              src={photo.url || "default.jpg"}
-              alt={photo?.alt || "photo"}
-            />
-            {index === 4 && (
-              <p
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  color: "white",
-                  fontSize: "1.5rem",
-                }}
-              >
-                + {numberOfImgs - 5}
-              </p>
-            )}
-          </ImageWrap>
-        ))}
-    </ImageGrid>
+  return (
+    <div>
+      {!showCarousel ? (
+        <ImageGrid
+          height={imagesGridHeight}
+          maxWidth={imagesGridMaxWidth}
+          numberOfImgs={numberOfImgs}
+          row={rowCol.row}
+          col={rowCol.col}
+        >
+          {numberOfImgs <= 5 &&
+            images
+              .slice(0, numberOfImgs)
+              .map((photo: UnsplashPhotoFortmat, index) => (
+                <ImageWrap key={index}>
+                  <ImageItem
+                    src={photo.url || "default.jpg"}
+                    alt={photo?.alt || "photo"}
+                    onClick={useCarousel}
+                  />
+                </ImageWrap>
+              ))}
+
+          {numberOfImgs > 5 &&
+            images.slice(0, 5).map((photo: UnsplashPhotoFortmat, index) => (
+              <ImageWrap style={{ position: "relative" }} key={index}>
+                <ImageItem
+                  src={photo.url || "default.jpg"}
+                  alt={photo?.alt || "photo"}
+                  onClick={useCarousel}
+                />
+                {index === 4 && (
+                  <p
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      color: "white",
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    + {numberOfImgs - 5}
+                  </p>
+                )}
+              </ImageWrap>
+            ))}
+        </ImageGrid>
+      ) : (
+        <h1>haha</h1>
+      )}
+    </div>
   );
 };
 export default ImageGridComponent;
