@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import Carousel from "./Carousel";
+import Carousel from "../Carousel/Carousel";
 
 interface ImageGridProps {
   // numberOfImgs: number;
