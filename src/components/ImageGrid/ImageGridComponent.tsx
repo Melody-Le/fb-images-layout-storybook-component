@@ -7,7 +7,7 @@ interface ImageGridProps {
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
   showModal?: boolean;
-  images: { id: string; url: string; alt: string }[];
+  images: { url: string; alt: string }[];
 }
 
 interface StyledImageWrap {
@@ -27,7 +27,6 @@ interface StyledImageGrid {
 }
 
 interface UnsplashPhotoFortmat {
-  id: string;
   url: string;
   alt: string;
 }
@@ -86,9 +85,11 @@ const ImageGridComponent = ({
         <>
           <div
             style={{
-              maxWidth: "300px",
+              maxWidth: "600px",
               width: "100%",
+              height: "400px",
               margin: "0 auto",
+              border: "1px solid black",
             }}
           >
             <Carousel imgList={images} />
@@ -96,7 +97,7 @@ const ImageGridComponent = ({
         </>
       ) : (
         <ImageGrid
-          height={imagesGridHeight}
+          height={imagesGridHeight}   
           maxWidth={imagesGridMaxWidth}
           numberOfImgs={numberOfImgs}
           row={rowCol.row}

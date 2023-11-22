@@ -28,7 +28,6 @@ const useUnsplashApi = async (perPage: number = 10) => {
     }
     const slicedArray = data.map((item: UnsplashPhotoFortmat) => {
       return {
-        id: item.id,
         url: item.urls.regular,
         alt: item.alt_description,
       };
