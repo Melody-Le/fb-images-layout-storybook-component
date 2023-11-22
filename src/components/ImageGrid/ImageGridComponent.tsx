@@ -83,7 +83,17 @@ const ImageGridComponent = ({
   return (
     <div>
       {showCarousel ? (
-        <Carousel imgList={images} />
+        <>
+          <div
+            style={{
+              maxWidth: "300px",
+              width: "100%",
+              margin: "0 auto",
+            }}
+          >
+            <Carousel imgList={images} />
+          </div>
+        </>
       ) : (
         <ImageGrid
           height={imagesGridHeight}

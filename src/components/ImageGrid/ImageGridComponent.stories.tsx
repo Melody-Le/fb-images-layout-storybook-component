@@ -25,13 +25,13 @@ export const Base: Story = {
     }),
   ],
   args: {
-    showModal: false,
+    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const image = canvas.getByRole("image",)
+    const image = canvas.getByRole("image");
   },
 };
 export const OneImage: Story = {
@@ -41,7 +41,7 @@ export const OneImage: Story = {
     }),
   ],
   args: {
-    showModal: false,
+    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -54,7 +54,7 @@ export const TwoImages: Story = {
     }),
   ],
   args: {
-    showModal: false,
+    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -66,7 +66,7 @@ export const ThreeImages: Story = {
     }),
   ],
   args: {
-    showModal: false,
+    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -78,7 +78,7 @@ export const FourImages: Story = {
     }),
   ],
   args: {
-    showModal: false,
+    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -90,7 +90,7 @@ export const FiveImages: Story = {
     }),
   ],
   args: {
-    showModal: false,
+    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
