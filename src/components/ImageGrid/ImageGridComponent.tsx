@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import Carousel from "./Carousel";
 
 interface ImageGridProps {
   // numberOfImgs: number;
@@ -76,12 +77,14 @@ const ImageGridComponent = ({
   }, [numberOfImgs]);
 
   const useCarousel = () => {
-    setShowCarousel(true);
+    showModal && setShowCarousel(true);
   };
 
   return (
     <div>
-      {!showCarousel ? (
+      {showCarousel ? (
+        <Carousel imgList={images} />
+      ) : (
         <ImageGrid
           height={imagesGridHeight}
           maxWidth={imagesGridMaxWidth}
@@ -127,8 +130,6 @@ const ImageGridComponent = ({
               </ImageWrap>
             ))}
         </ImageGrid>
-      ) : (
-        <h1>haha</h1>
       )}
     </div>
   );
@@ -168,6 +169,7 @@ const ImageGrid = styled.div<StyledImageGrid>`
   height: ${(props) => (props.height ? props.height : "20rem")};
   max-width: ${(props) => (props.maxWidth ? props.maxWidth : "")};
   gap: 0.3rem;
+  cursor: pointer;
   margin: 0 auto;
   ${BreakPoints.small} {
     gap: 0.4rem;
