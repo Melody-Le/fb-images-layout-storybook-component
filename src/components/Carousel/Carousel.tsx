@@ -7,9 +7,10 @@ import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
 interface ImageProps {
   imgList: { url: string; alt: string }[];
+  closeCarousel: () => void;
 }
 
-function Carousel({ imgList }: ImageProps) {
+function Carousel({ imgList, closeCarousel }: ImageProps) {
   const [imgIndex, setImgIndex] = useState(0);
   const showNext = () => {
     setImgIndex((prevState) =>
@@ -79,6 +80,7 @@ function Carousel({ imgList }: ImageProps) {
           )
         )}
       </div>
+      <div></div>
     </div>
   );
 }
@@ -111,7 +113,7 @@ const SliderRightBtn = styled(BsArrowRightCircleFill)`
   filter: drop-shadow(0px 0px 5px #555);
 `;
 
-//TODO: search how to do hover
+//TODO: issue of showing blinking củo in these button
 
 const IndicatorButton = styled.button`
   all: unset;
@@ -122,6 +124,10 @@ const IndicatorButton = styled.button`
   box-shadow: 0px 0px 5px #555;
   margin: 0 0.2rem;
   cursor: pointer;
+  transition: scale 100ms ease-in-out;
+  &:hover {
+    scale: 1.5;
+  }
 `;
 
 const IndicatorButtonInactive = styled(IndicatorButton)`

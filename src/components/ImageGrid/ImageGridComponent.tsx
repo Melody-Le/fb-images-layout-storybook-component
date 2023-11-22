@@ -34,7 +34,6 @@ interface UnsplashPhotoFortmat {
 /*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({
-  // numberOfImgs = 1,
   showModal = false,
   imagesGridMaxWidth,
   imagesGridHeight,
@@ -78,9 +77,21 @@ const ImageGridComponent = ({
   const useCarousel = () => {
     showModal && setShowCarousel(true);
   };
-
+  const closeCarousel = () => {
+    setShowCarousel(false);
+  };
   return (
-    <div>
+    <div
+      className="container"
+      onClick={(evnt) => {
+        // debug this using this page: https://www.reddit.com/r/typescript/comments/v5hzws/property_classname_does_not_exist_on_type/
+        const target = evnt.target as HTMLTextAreaElement;
+        const element = target.className;
+        if (element === "container") {
+          setShowCarousel(false);
+        }
+      }}
+    >
       {showCarousel ? (
         <>
           <div
@@ -88,12 +99,14 @@ const ImageGridComponent = ({
               // width: "800px",
               // aspectRatio: "1:1",
               height: "80vh",
+              maxWidth: "90%",
               // width: "100%",
               // height: "400px",
               margin: "0 auto",
+              cursor: "pointer",
             }}
           >
-            <Carousel imgList={images} />
+            <Carousel imgList={images} closeCarousel={closeCarousel} />
           </div>
         </>
       ) : (
