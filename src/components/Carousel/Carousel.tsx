@@ -80,12 +80,45 @@ function Carousel({ imgList, closeCarousel }: ImageProps) {
           )
         )}
       </div>
-      <div></div>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "0.25rem",
+        }}
+      >
+        {imgList.map((item, index) =>
+          // <IndicatorImg
+          //   key={index}
+          //   src={item.url}
+          //   onClick={() => setImgIndex(index)}
+          // />
+          index === imgIndex ? (
+            <IndicatorImg
+              key={index}
+              src={item.url}
+              onClick={() => {
+                setImgIndex(index);
+              }}
+            />
+          ) : (
+            <IndicatorImgInactive
+              key={index}
+              src={item.url}
+              onClick={() => {
+                setImgIndex(index);
+              }}
+            />
+          )
+        )}
+      </div>
     </div>
   );
 }
 
 export default Carousel;
+
+/*----------------------EMOTION STYLED---------------------- */
 
 const ImageSlider = styled.img`
   object-fit: contain;
@@ -132,4 +165,21 @@ const IndicatorButton = styled.button`
 
 const IndicatorButtonInactive = styled(IndicatorButton)`
   background-color: grey;
+`;
+
+const IndicatorImg = styled.img`
+  outline: none;
+  margin: 0 0.2rem;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  box-shadow: 0px 0px 5px #555;
+  border: 2px black solid;
+  border-radius: 0.5rem;
+`;
+const IndicatorImgInactive = styled(IndicatorImg)`
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  border: none;
 `;

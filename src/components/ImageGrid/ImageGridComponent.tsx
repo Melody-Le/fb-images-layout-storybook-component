@@ -104,7 +104,7 @@ const ImageGridComponent = ({
         <>
           <div
             style={{
-              height: "80vh",
+              height: "90vh",
               maxWidth: "90%",
               margin: "0 auto",
               cursor: "pointer",
