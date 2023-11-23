@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import "./Carousel.css";
-import { PiArrowFatLeft, PiArrowFatRight } from "react-icons/pi";
-import { FaRegCircle, FaRegCircleDot } from "react-icons/fa6";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
 interface ImageProps {
   imgList: { url: string; alt: string }[];
-  closeCarousel: () => void;
+  selectedImgIndex: number;
 }
 
-function Carousel({ imgList, closeCarousel }: ImageProps) {
+function Carousel({ imgList, selectedImgIndex }: ImageProps) {
   const [imgIndex, setImgIndex] = useState(0);
   const showNext = () => {
     setImgIndex((prevState) =>
@@ -22,6 +20,9 @@ function Carousel({ imgList, closeCarousel }: ImageProps) {
       prevState === 0 ? imgList.length - 1 : prevState - 1
     );
   };
+  useEffect(() => {
+    setImgIndex(selectedImgIndex);
+  }, [selectedImgIndex]);
   return (
     <div
       style={{
@@ -67,12 +68,14 @@ function Carousel({ imgList, closeCarousel }: ImageProps) {
         {imgList.map((_, index) =>
           index === imgIndex ? (
             <IndicatorButton
+              key={index}
               onClick={() => {
                 setImgIndex(index);
               }}
             />
           ) : (
             <IndicatorButtonInactive
+              key={index}
               onClick={() => {
                 setImgIndex(index);
               }}

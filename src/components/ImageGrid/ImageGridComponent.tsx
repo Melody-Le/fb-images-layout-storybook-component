@@ -42,6 +42,7 @@ const ImageGridComponent = ({
   // Set State:
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
   const [showCarousel, setShowCarousel] = useState(false);
+  const [selectedImgIndex, setSelectedImgIndex] = useState<number>(-1);
 
   const numberOfImgs = images.length;
 
@@ -82,8 +83,9 @@ const ImageGridComponent = ({
     return () => document.removeEventListener("keydown", keydownHandler);
   });
 
-  const useCarousel = () => {
+  const useCarousel = (index: number) => {
     showModal && setShowCarousel(true);
+    setSelectedImgIndex(index);
   };
   const closeCarousel = () => {
     setShowCarousel(false);
@@ -110,7 +112,7 @@ const ImageGridComponent = ({
               cursor: "pointer",
             }}
           >
-            <Carousel imgList={images} closeCarousel={closeCarousel} />
+            <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
           </div>
         </>
       ) : (
@@ -125,22 +127,24 @@ const ImageGridComponent = ({
             images
               .slice(0, numberOfImgs)
               .map((photo: UnsplashPhotoFortmat, index) => (
-                <ImageWrap key={index}>
+                <ImageWrap key={index} onClick={useCarousel.bind(this, index)}>
                   <ImageItem
                     src={photo.url || "default.jpg"}
                     alt={photo?.alt || "photo"}
-                    onClick={useCarousel}
                   />
                 </ImageWrap>
               ))}
 
           {numberOfImgs > 5 &&
             images.slice(0, 5).map((photo: UnsplashPhotoFortmat, index) => (
-              <ImageWrap style={{ position: "relative" }} key={index}>
+              <ImageWrap
+                key={index}
+                style={{ position: "relative" }}
+                onClick={useCarousel.bind(this, index)}
+              >
                 <ImageItem
                   src={photo.url || "default.jpg"}
                   alt={photo?.alt || "photo"}
-                  onClick={useCarousel}
                 />
                 {index === 4 && (
                   <p
