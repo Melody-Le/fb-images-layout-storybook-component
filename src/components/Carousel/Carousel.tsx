@@ -173,7 +173,7 @@ const IndicatorImg = styled.img`
   height: 100px;
   object-fit: cover;
   box-shadow: 0px 0px 5px #555;
-  border: 2px black solid;
+  border: 2px yellow solid;
   border-radius: 0.5rem;
   transition: scale 100ms ease-in-out;
   &:hover {
