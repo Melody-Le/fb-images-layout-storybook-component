@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { BREAKPONITS, ImageFormat } from "../../utils/constants";
 import Carousel from "../Carousel/Carousel";
@@ -40,6 +40,7 @@ const ImageGridComponent = ({
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
   const [showCarousel, setShowCarousel] = useState(false);
   const [selectedImgIndex, setSelectedImgIndex] = useState<number>(-1);
+  const newRef = useRef<HTMLInputElement>(null);
 
   const numberOfImgs = images.length;
 
@@ -71,6 +72,7 @@ const ImageGridComponent = ({
       setRowCol({ col: 1, row: 1 });
     }
   }, [numberOfImgs]);
+
   // close Carousel when user press esc
   useEffect(() => {
     const keydownHandler = (event: KeyboardEvent) => {
@@ -80,38 +82,46 @@ const ImageGridComponent = ({
     return () => document.removeEventListener("keydown", keydownHandler);
   });
 
-  const useCarousel = (index: number) => {
+  const openCarousel = (index: number) => {
     showModal && setShowCarousel(true);
     setSelectedImgIndex(index);
   };
-  const closeCarousel = () => {
-    setShowCarousel(false);
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    // console.log("EVENT.TARGET: ", event.target);
+    // console.log("newRef.current: ", newRef.current);
+
+    if (
+      event.target instanceof Node &&
+      newRef.current &&
+      !newRef.current.contains(event.target)
+    ) {
+      // console.log("CLOSE");
+      setShowCarousel(false);
+    }
   };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  });
+
   return (
-    <div
-      className="container"
-      onClick={(event) => {
-        // debug this using this page: https://www.reddit.com/r/typescript/comments/v5hzws/property_classname_does_not_exist_on_type/
-        const target = event.target as HTMLTextAreaElement;
-        const element = target.className;
-        if (element === "container") {
-          setShowCarousel(false);
-        }
-      }}
-    >
+    <>
       {showCarousel ? (
-        <>
-          <div
-            style={{
-              height: "90vh",
-              maxWidth: "90%",
-              margin: "0 auto",
-              cursor: "pointer",
-            }}
-          >
-            <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
-          </div>
-        </>
+        <div
+          style={{
+            height: "90vh",
+            maxWidth: "90%",
+            margin: "0 auto",
+            cursor: "pointer",
+          }}
+          ref={newRef}
+        >
+          <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
+        </div>
       ) : (
         <ImageGrid
           height={imagesGridHeight}
@@ -122,7 +132,7 @@ const ImageGridComponent = ({
         >
           {numberOfImgs <= MAX_PREVIEW_NUM &&
             images.slice(0, numberOfImgs).map((photo: ImageFormat, index) => (
-              <ImageWrap key={index} onClick={useCarousel.bind(this, index)}>
+              <ImageWrap key={index} onClick={() => openCarousel(index)}>
                 <ImageItem
                   src={photo.url || "default.jpg"}
                   alt={photo?.alt || "photo"}
@@ -137,7 +147,7 @@ const ImageGridComponent = ({
                 <ImageWrap
                   style={{ position: "relative" }}
                   key={index}
-                  onClick={useCarousel.bind(this, index)}
+                  onClick={() => openCarousel(index)}
                 >
                   <ImageItem
                     src={photo.url || "default.jpg"}
@@ -152,7 +162,7 @@ const ImageGridComponent = ({
               ))}
         </ImageGrid>
       )}
-    </div>
+    </>
   );
 };
 export default ImageGridComponent;

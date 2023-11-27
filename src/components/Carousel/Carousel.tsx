@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, RefObject } from "react";
 import styled from "@emotion/styled";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-
+import { ImageFormat } from "../../utils/constants";
 interface ImageProps {
-  imgList: { url: string; alt: string }[];
+  imgList: ImageFormat[];
   selectedImgIndex: number;
 }
 
