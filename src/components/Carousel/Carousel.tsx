@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import "./Carousel.css";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
 interface ImageProps {
@@ -24,28 +23,8 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
     setImgIndex(selectedImgIndex);
   }, [selectedImgIndex]);
   return (
-    <div
-      style={{
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        rowGap: "0.5rem",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          overflow: "hidden",
-          display: "flex",
-          borderRadius: "0.5rem",
-          boxShadow: "0px 0px 7px #666",
-        }}
-      >
+    <CarouselWrapper>
+      <ImageSliderContainer>
         {imgList.map((item, idx) => (
           <ImageSlider
             key={idx}
@@ -56,15 +35,10 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
             }}
           />
         ))}
-      </div>
-      <SliderLeftBtn onClick={showPrevious} style={{ left: "1rem" }} />
-      <SliderRightBtn onClick={showNext} style={{ right: "1rem" }} />
-      <div
-        style={{
-          display: "flex",
-          gap: "0.25rem",
-        }}
-      >
+      </ImageSliderContainer>
+      <SliderLeftBtn onClick={showPrevious} />
+      <SliderRightBtn onClick={showNext} />
+      <IndicatorContainer>
         {imgList.map((_, index) =>
           index === imgIndex ? (
             <IndicatorButton
@@ -82,14 +56,9 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
             />
           )
         )}
-      </div>
+      </IndicatorContainer>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "0.25rem",
-        }}
-      >
+      <IndicatorContainer>
         {imgList.map((item, index) =>
           index === imgIndex ? (
             <IndicatorImg
@@ -109,14 +78,31 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
             />
           )
         )}
-      </div>
-    </div>
+      </IndicatorContainer>
+    </CarouselWrapper>
   );
 }
 
 export default Carousel;
 
 /*----------------------EMOTION STYLED---------------------- */
+
+const CarouselWrapper = styled.div`
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ImageSliderContainer = styled.div`
+  overflow: hidden;
+  display: flex;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 7px #666;
+`;
 
 const ImageSlider = styled.img`
   object-fit: contain;
@@ -135,6 +121,7 @@ const SliderLeftBtn = styled(BsArrowLeftCircleFill)`
   height: 2rem;
   color: white;
   filter: drop-shadow(0px 0px 5px #555);
+  left: 1rem;
 `;
 const SliderRightBtn = styled(BsArrowRightCircleFill)`
   position: absolute;
@@ -142,9 +129,15 @@ const SliderRightBtn = styled(BsArrowRightCircleFill)`
   height: 2rem;
   color: white;
   filter: drop-shadow(0px 0px 5px #555);
+  right: 1rem;
 `;
 
 //TODO: issue of showing blinking củo in these button
+
+const IndicatorContainer = styled.div`
+  display: flex;
+  gap: 0.25rem;
+`;
 
 const IndicatorButton = styled.button`
   all: unset;

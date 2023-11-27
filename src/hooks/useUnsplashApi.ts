@@ -6,7 +6,6 @@ const unsplashUrl = (perPage: number) =>
 const randomUnSplashUrl = `https://api.unsplash.com/photos/random/?client_id=${accessKey}`;
 
 interface UnsplashPhotoFortmat {
-  id: string;
   url: string;
   alt: string;
   urls: { regular: string };
@@ -28,7 +27,6 @@ const useUnsplashApi = async (perPage: number = 10) => {
     }
     const slicedArray = data.map((item: UnsplashPhotoFortmat) => {
       return {
-        id: item.id,
         url: item.urls.regular,
         alt: item.alt_description,
       };

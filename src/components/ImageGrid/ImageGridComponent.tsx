@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { BREAKPONITS } from "../../utils/constants";
+import { BREAKPONITS, ImageFormat } from "../../utils/constants";
 import Carousel from "../Carousel/Carousel";
 
 interface ImageGridProps {
-  // numberOfImgs: number;
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
   showModal?: boolean;
-  images: { id: string; url: string; alt: string }[];
+  images: ImageFormat[];
 }
 
 interface StyledImageWrap {
@@ -27,18 +26,11 @@ interface StyledImageGrid {
   maxWidth?: string;
 }
 
-interface UnsplashPhotoFortmat {
-  id: string;
-  url: string;
-  alt: string;
-}
-
 const MAX_PREVIEW_NUM = 5;
 
 /*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({
-  // numberOfImgs = 1,
   showModal = true,
   imagesGridMaxWidth,
   imagesGridHeight,
@@ -81,8 +73,8 @@ const ImageGridComponent = ({
   }, [numberOfImgs]);
   // close Carousel when user press esc
   useEffect(() => {
-    const keydownHandler = (evnt: KeyboardEvent) => {
-      evnt.key === "Escape" && setShowCarousel(false);
+    const keydownHandler = (event: KeyboardEvent) => {
+      event.key === "Escape" && setShowCarousel(false);
     };
     document.addEventListener("keydown", keydownHandler);
     return () => document.removeEventListener("keydown", keydownHandler);
@@ -98,9 +90,9 @@ const ImageGridComponent = ({
   return (
     <div
       className="container"
-      onClick={(evnt) => {
+      onClick={(event) => {
         // debug this using this page: https://www.reddit.com/r/typescript/comments/v5hzws/property_classname_does_not_exist_on_type/
-        const target = evnt.target as HTMLTextAreaElement;
+        const target = event.target as HTMLTextAreaElement;
         const element = target.className;
         if (element === "container") {
           setShowCarousel(false);
@@ -129,21 +121,19 @@ const ImageGridComponent = ({
           col={rowCol.col}
         >
           {numberOfImgs <= MAX_PREVIEW_NUM &&
-            images
-              .slice(0, numberOfImgs)
-              .map((photo: UnsplashPhotoFortmat, index) => (
-                <ImageWrap key={index} onClick={useCarousel.bind(this, index)}>
-                  <ImageItem
-                    src={photo.url || "default.jpg"}
-                    alt={photo?.alt || "photo"}
-                  />
-                </ImageWrap>
-              ))}
+            images.slice(0, numberOfImgs).map((photo: ImageFormat, index) => (
+              <ImageWrap key={index} onClick={useCarousel.bind(this, index)}>
+                <ImageItem
+                  src={photo.url || "default.jpg"}
+                  alt={photo?.alt || "photo"}
+                />
+              </ImageWrap>
+            ))}
 
           {numberOfImgs > MAX_PREVIEW_NUM &&
             images
               .slice(0, MAX_PREVIEW_NUM)
-              .map((photo: UnsplashPhotoFortmat, index) => (
+              .map((photo: ImageFormat, index) => (
                 <ImageWrap
                   style={{ position: "relative" }}
                   key={index}
