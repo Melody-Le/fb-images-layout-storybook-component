@@ -29,10 +29,6 @@ export const Base: Story = {
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const image = canvas.getByRole("image");
-  },
 };
 export const OneImage: Story = {
   loaders: [
