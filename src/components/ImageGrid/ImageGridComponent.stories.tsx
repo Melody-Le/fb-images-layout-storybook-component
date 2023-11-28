@@ -25,7 +25,6 @@ export const Base: Story = {
     }),
   ],
   args: {
-    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -37,7 +36,6 @@ export const OneImage: Story = {
     }),
   ],
   args: {
-    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -50,7 +48,6 @@ export const TwoImages: Story = {
     }),
   ],
   args: {
-    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -62,7 +59,6 @@ export const ThreeImages: Story = {
     }),
   ],
   args: {
-    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -74,7 +70,6 @@ export const FourImages: Story = {
     }),
   ],
   args: {
-    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -86,7 +81,6 @@ export const FiveImages: Story = {
     }),
   ],
   args: {
-    showModal: true,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },

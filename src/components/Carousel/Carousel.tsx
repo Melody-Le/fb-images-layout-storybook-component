@@ -1,4 +1,4 @@
-import React, { useState, useEffect, RefObject } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 import { ImageFormat } from "../../utils/constants";
@@ -114,7 +114,6 @@ const ImageSlider = styled.img`
   transition: translate 300ms ease-in-out;
 `;
 
-// think way to avoid repeated of SliderLeftBtn & SliderRightBtn
 const SliderLeftBtn = styled(BsArrowLeftCircleFill)`
   position: absolute;
   width: 2rem;
@@ -131,8 +130,6 @@ const SliderRightBtn = styled(BsArrowRightCircleFill)`
   filter: drop-shadow(0px 0px 5px #555);
   right: 1rem;
 `;
-
-//TODO: issue of showing blinking củo in these button
 
 const IndicatorContainer = styled.div`
   display: flex;

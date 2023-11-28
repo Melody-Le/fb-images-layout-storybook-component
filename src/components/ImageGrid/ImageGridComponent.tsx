@@ -6,7 +6,6 @@ import Carousel from "../Carousel/Carousel";
 interface ImageGridProps {
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
-  showModal?: boolean;
   images: ImageFormat[];
 }
 
@@ -31,7 +30,6 @@ const MAX_PREVIEW_NUM = 5;
 /*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({
-  showModal = true,
   imagesGridMaxWidth,
   imagesGridHeight,
   images,
@@ -83,20 +81,16 @@ const ImageGridComponent = ({
   });
 
   const openCarousel = (index: number) => {
-    showModal && setShowCarousel(true);
+    setShowCarousel(true);
     setSelectedImgIndex(index);
   };
 
   const handleOutsideClick = (event: MouseEvent) => {
-    // console.log("EVENT.TARGET: ", event.target);
-    // console.log("newRef.current: ", newRef.current);
-
     if (
       event.target instanceof Node &&
       newRef.current &&
       !newRef.current.contains(event.target)
     ) {
-      // console.log("CLOSE");
       setShowCarousel(false);
     }
   };
@@ -111,17 +105,9 @@ const ImageGridComponent = ({
   return (
     <>
       {showCarousel ? (
-        <div
-          style={{
-            height: "90vh",
-            maxWidth: "90%",
-            margin: "0 auto",
-            cursor: "pointer",
-          }}
-          ref={newRef}
-        >
+        <CarouselContainer ref={newRef}>
           <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
-        </div>
+        </CarouselContainer>
       ) : (
         <ImageGrid
           height={imagesGridHeight}
@@ -168,6 +154,12 @@ const ImageGridComponent = ({
 export default ImageGridComponent;
 
 /*----------------------EMOTION STYLED---------------------- */
+const CarouselContainer = styled.div`
+  height: 90vh;
+  width: 90vw;
+  margin: 0 auto;
+  cursor: pointer;
+`;
 
 const ImageItem = styled.img`
   object-fit: cover;
