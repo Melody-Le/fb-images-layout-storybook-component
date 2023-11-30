@@ -28,6 +28,23 @@ export const Base: Story = {
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
+  play: async ({ canvasElement }) => {
+    // const canvas = within(canvasElement);
+    // const email = canvas.getByLabelText(/email/i);
+    // const question = canvas.getByLabelText(/question/i);
+
+    // const submitBtn = canvas.getByRole("button", { name: /post question/i });
+    // await userEvent.type(email, "haha@gmail.com");
+    // await userEvent.type(question, "Did you watch end game?");
+    // await userEvent.click(submitBtn);
+
+    // await expect(canvas.getByText(/thank you/i)).toBeInTheDocument();
+    const canvas = within(canvasElement);
+    const imageWrapper = canvas.getByTestId("wrapper");
+    await expect(imageWrapper).toBeInTheDocument();
+    
+    
+  },
 };
 export const OneImage: Story = {
   loaders: [

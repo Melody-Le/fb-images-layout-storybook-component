@@ -29,7 +29,7 @@ const MAX_PREVIEW_NUM = 5;
 
 /*----------------------MAIN COMPONENT---------------------- */
 
-const ImageGridComponent = ({
+export const ImageGridComponent = ({
   imagesGridMaxWidth,
   imagesGridHeight,
   images,
@@ -115,11 +115,13 @@ const ImageGridComponent = ({
           numberOfImgs={numberOfImgs}
           row={rowCol.row}
           col={rowCol.col}
+          data-testid="wrapper"
         >
           {numberOfImgs <= MAX_PREVIEW_NUM &&
             images.slice(0, numberOfImgs).map((photo: ImageFormat, index) => (
               <ImageWrap key={index} onClick={() => openCarousel(index)}>
                 <ImageItem
+                  id={`${index}`}
                   src={photo.url || "default.jpg"}
                   alt={photo?.alt || "photo"}
                 />
@@ -136,6 +138,7 @@ const ImageGridComponent = ({
                   onClick={() => openCarousel(index)}
                 >
                   <ImageItem
+                    id={`${index}`}
                     src={photo.url || "default.jpg"}
                     alt={photo?.alt || "photo"}
                   />
