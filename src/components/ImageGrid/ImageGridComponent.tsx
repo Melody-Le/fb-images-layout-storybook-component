@@ -1,13 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "@emotion/styled";
-import { BREAKPONITS } from "../../utils/constants";
+import { BREAKPONITS, ImageFormat } from "../../utils/constants";
+import Carousel from "../Carousel/Carousel";
 
 interface ImageGridProps {
-  // numberOfImgs: number;
   imagesGridHeight: string;
   imagesGridMaxWidth?: string;
-  showModal?: boolean;
-  images: { id: string; url: string; alt: string }[];
+  images: ImageFormat[];
 }
 
 interface StyledImageWrap {
@@ -26,25 +25,20 @@ interface StyledImageGrid {
   maxWidth?: string;
 }
 
-interface UnsplashPhotoFortmat {
-  id: string;
-  url: string;
-  alt: string;
-}
-
 const MAX_PREVIEW_NUM = 5;
 
 /*----------------------MAIN COMPONENT---------------------- */
 
 const ImageGridComponent = ({
-  // numberOfImgs = 1,
-  showModal = false,
   imagesGridMaxWidth,
   imagesGridHeight,
   images,
 }: ImageGridProps) => {
   // Set State:
   const [rowCol, setRowCol] = useState({ col: 6, row: 2 });
+  const [showCarousel, setShowCarousel] = useState(false);
+  const [selectedImgIndex, setSelectedImgIndex] = useState<number>(-1);
+  const newRef = useRef<HTMLInputElement>(null);
 
   const numberOfImgs = images.length;
 
@@ -77,48 +71,95 @@ const ImageGridComponent = ({
     }
   }, [numberOfImgs]);
 
-  return (
-    <ImageGrid
-      height={imagesGridHeight}
-      maxWidth={imagesGridMaxWidth}
-      numberOfImgs={numberOfImgs}
-      row={rowCol.row}
-      col={rowCol.col}
-    >
-      {numberOfImgs <= MAX_PREVIEW_NUM &&
-        images
-          .slice(0, numberOfImgs)
-          .map((photo: UnsplashPhotoFortmat, index) => (
-            <ImageWrap key={index}>
-              <ImageItem
-                src={photo.url || "default.jpg"}
-                alt={photo?.alt || "photo"}
-              />
-            </ImageWrap>
-          ))}
+  // close Carousel when user press esc
+  useEffect(() => {
+    const keydownHandler = (event: KeyboardEvent) => {
+      event.key === "Escape" && setShowCarousel(false);
+    };
+    document.addEventListener("keydown", keydownHandler);
+    return () => document.removeEventListener("keydown", keydownHandler);
+  });
 
-      {numberOfImgs > MAX_PREVIEW_NUM &&
-        images
-          .slice(0, MAX_PREVIEW_NUM)
-          .map((photo: UnsplashPhotoFortmat, index) => (
-            <ImageWrap style={{ position: "relative" }}>
-              <ImageItem
-                src={photo.url || "default.jpg"}
-                alt={photo?.alt || "photo"}
-              />
-              {index === MAX_PREVIEW_NUM - 1 && (
-                <NumberOfRemainingImgs>
-                  + {numberOfImgs - MAX_PREVIEW_NUM}
-                </NumberOfRemainingImgs>
-              )}
-            </ImageWrap>
-          ))}
-    </ImageGrid>
+  const openCarousel = (index: number) => {
+    setShowCarousel(true);
+    setSelectedImgIndex(index);
+  };
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      event.target instanceof Node &&
+      newRef.current &&
+      !newRef.current.contains(event.target)
+    ) {
+      setShowCarousel(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  });
+
+  return (
+    <>
+      {showCarousel ? (
+        <CarouselContainer ref={newRef}>
+          <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
+        </CarouselContainer>
+      ) : (
+        <ImageGrid
+          height={imagesGridHeight}
+          maxWidth={imagesGridMaxWidth}
+          numberOfImgs={numberOfImgs}
+          row={rowCol.row}
+          col={rowCol.col}
+        >
+          {numberOfImgs <= MAX_PREVIEW_NUM &&
+            images.slice(0, numberOfImgs).map((photo: ImageFormat, index) => (
+              <ImageWrap key={index} onClick={() => openCarousel(index)}>
+                <ImageItem
+                  src={photo.url || "default.jpg"}
+                  alt={photo?.alt || "photo"}
+                />
+              </ImageWrap>
+            ))}
+
+          {numberOfImgs > MAX_PREVIEW_NUM &&
+            images
+              .slice(0, MAX_PREVIEW_NUM)
+              .map((photo: ImageFormat, index) => (
+                <ImageWrap
+                  style={{ position: "relative" }}
+                  key={index}
+                  onClick={() => openCarousel(index)}
+                >
+                  <ImageItem
+                    src={photo.url || "default.jpg"}
+                    alt={photo?.alt || "photo"}
+                  />
+                  {index === MAX_PREVIEW_NUM - 1 && (
+                    <NumberOfRemainingImgs>
+                      + {numberOfImgs - MAX_PREVIEW_NUM}
+                    </NumberOfRemainingImgs>
+                  )}
+                </ImageWrap>
+              ))}
+        </ImageGrid>
+      )}
+    </>
   );
 };
 export default ImageGridComponent;
 
 /*----------------------EMOTION STYLED---------------------- */
+const CarouselContainer = styled.div`
+  height: 90vh;
+  width: 90vw;
+  margin: 0 auto;
+  cursor: pointer;
+`;
 
 const ImageItem = styled.img`
   object-fit: cover;

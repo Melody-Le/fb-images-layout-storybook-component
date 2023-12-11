@@ -4,3 +4,7 @@ export enum BREAKPONITS {
   large = `@media (min-width: 992px)`,
   wide = `@media (min-width: 1200px)`,
 }
+export interface ImageFormat {
+  url: string;
+  alt: string;
+}
