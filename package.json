@@ -1,7 +1,15 @@
 {
-  "name": "mel_lib-fb-images-component",
-  "version": "0.1.0",
-  "private": true,
+  "name": "melody-fb-images-component",
+  "version": "0.2.0",
+  "description": "This library is to build the layout for images what is similar to facebook images layout components",
+  "author": "Melody Le",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@emotion/core": "^11.0.0",
     "@emotion/styled": "^11.11.0",
@@ -11,8 +19,8 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.50",
-    "@types/react": "^18.2.21",
-    "@types/react-dom": "^18.2.7",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
     "axios": "^1.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -28,7 +36,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build-lib": "rollup -c"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +59,9 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.23.3",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-essentials": "^7.4.5",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.4.5",
@@ -63,8 +75,25 @@
     "@storybook/testing-library": "^0.2.2",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint-plugin-storybook": "^0.6.14",
+    "postcss": "^8.4.32",
     "prop-types": "^15.8.1",
+    "rollup": "^2.79.1",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.36.0",
     "storybook": "^7.4.5",
     "webpack": "^5.88.2"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@emotion/core": "^11.0.0",
+    "react-icon": "^1.0.0",
+    "react-icons": "^4.12.0",
+    "@emotion/styled": "^11.11.0",
+    "axios": "^1.5.1"
   }
 }
