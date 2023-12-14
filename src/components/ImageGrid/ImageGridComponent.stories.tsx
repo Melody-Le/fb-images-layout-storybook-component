@@ -25,14 +25,9 @@ export const Base: Story = {
     }),
   ],
   args: {
-    // numberOfImgs: 9,
-    showModal: false,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
-  // play: async ({canvasElement}) => {
-  //   const canvas = ithi
-  // }
 };
 export const OneImage: Story = {
   loaders: [
@@ -41,7 +36,6 @@ export const OneImage: Story = {
     }),
   ],
   args: {
-    showModal: false,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -54,7 +48,6 @@ export const TwoImages: Story = {
     }),
   ],
   args: {
-    showModal: false,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -66,7 +59,6 @@ export const ThreeImages: Story = {
     }),
   ],
   args: {
-    showModal: false,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -78,7 +70,6 @@ export const FourImages: Story = {
     }),
   ],
   args: {
-    showModal: false,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
@@ -90,7 +81,6 @@ export const FiveImages: Story = {
     }),
   ],
   args: {
-    showModal: false,
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
