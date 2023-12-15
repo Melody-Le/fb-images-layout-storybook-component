@@ -95,6 +95,7 @@ const CarouselWrapper = styled.div`
   row-gap: 0.5rem;
   justify-content: center;
   align-items: center;
+  caret-color: transparent;
 `;
 
 const ImageSliderContainer = styled.div`

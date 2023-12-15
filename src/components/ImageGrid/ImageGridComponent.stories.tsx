@@ -14,6 +14,7 @@ const meta: Meta<typeof ImageGrid> = {
   title: "ImageGrid",
   tags: ["autodocs"],
 };
+
 export default meta;
 
 type Story = StoryObj<typeof meta>;
@@ -27,6 +28,18 @@ export const Base: Story = {
   args: {
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const imageGrid = canvas.getByTestId("imgGrid");
+    const imgItems = canvas.getAllByRole("img");
+    await expect(imgItems).toHaveLength(5);
+    console.log(imgItems[0]);
+    await expect(imageGrid).toBeInTheDocument();
+    await expect(imageGrid).toHaveStyle(`display: grid`);
+    await userEvent.click(imgItems[0] as HTMLSelectElement);
+    // await expect(canvas.queryByTestId("haha")).toBeInTheDocument();
+    // console.log(canvas.queryByTestId("haha"));
   },
 };
 export const OneImage: Story = {

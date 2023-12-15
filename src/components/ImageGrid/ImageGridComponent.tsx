@@ -29,7 +29,7 @@ const MAX_PREVIEW_NUM = 5;
 
 /*----------------------MAIN COMPONENT---------------------- */
 
-const ImageGridComponent = ({
+export const ImageGridComponent = ({
   imagesGridMaxWidth,
   imagesGridHeight,
   images,
@@ -105,9 +105,12 @@ const ImageGridComponent = ({
   return (
     <>
       {showCarousel ? (
-        <CarouselContainer ref={newRef}>
-          <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
-        </CarouselContainer>
+        /* <CarouselContainer ref={newRef}>
+            <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
+          </CarouselContainer> */
+        <div data-testid="haha">
+          <p>haha</p>
+        </div>
       ) : (
         <ImageGrid
           height={imagesGridHeight}
@@ -115,13 +118,21 @@ const ImageGridComponent = ({
           numberOfImgs={numberOfImgs}
           row={rowCol.row}
           col={rowCol.col}
+          data-testid="imgGrid"
         >
           {numberOfImgs <= MAX_PREVIEW_NUM &&
             images.slice(0, numberOfImgs).map((photo: ImageFormat, index) => (
-              <ImageWrap key={index} onClick={() => openCarousel(index)}>
+              <ImageWrap
+                key={index}
+                onClick={() => openCarousel(index)}
+                data-testid="imgWrap"
+              >
                 <ImageItem
+                  id={`${index}`}
                   src={photo.url || "default.jpg"}
                   alt={photo?.alt || "photo"}
+                  data-testid="imgItem"
+                  role="img"
                 />
               </ImageWrap>
             ))}
@@ -136,6 +147,7 @@ const ImageGridComponent = ({
                   onClick={() => openCarousel(index)}
                 >
                   <ImageItem
+                    id={`${index}`}
                     src={photo.url || "default.jpg"}
                     alt={photo?.alt || "photo"}
                   />
@@ -174,7 +186,8 @@ let ImageWrap = styled.div<StyledImageWrap>`
   position: "relative",
   textAlign: "center",
   color: "blue",
-  backgroundColor: "yellow",`;
+  backgroundColor: "yellow",
+`;
 
 const ImageGrid = styled.div<StyledImageGrid>`
   display: grid;
@@ -184,6 +197,9 @@ const ImageGrid = styled.div<StyledImageGrid>`
   max-width: ${(props) => (props.maxWidth ? props.maxWidth : "")};
   gap: 0.3rem;
   margin: 0 auto;
+  cursor: pointer;
+  caret-color: transparent;
+
   ${BREAKPONITS.small} {
     gap: 0.4rem;
   }
