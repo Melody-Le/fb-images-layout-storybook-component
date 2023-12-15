@@ -11,13 +11,4 @@ test("Checks if the form is valid", async () => {
   render(<ImageGridTesting />);
   const imageGrid = screen.getByTestId("imgGrid");
   expect(imageGrid).toBeInTheDocument();
-
-  // const buttonElement = screen.getByRole("button", {
-  //   name: "Submit",
-  // });
-
-  // fireEvent.click(buttonElement);
-
-  // const isFormValid = screen.getByLabelText("invalid-form");
-  // expect(isFormValid).toBeInTheDocument();
 });
