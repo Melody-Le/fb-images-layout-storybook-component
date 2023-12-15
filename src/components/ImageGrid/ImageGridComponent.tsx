@@ -105,11 +105,10 @@ export const ImageGridComponent = ({
   return (
     <>
       {showCarousel ? (
-        /* <CarouselContainer ref={newRef}>
+        <div data-testid="carousel">
+          <CarouselContainer ref={newRef}>
             <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
-          </CarouselContainer> */
-        <div data-testid="haha">
-          <p>haha</p>
+          </CarouselContainer>
         </div>
       ) : (
         <ImageGrid
@@ -122,17 +121,14 @@ export const ImageGridComponent = ({
         >
           {numberOfImgs <= MAX_PREVIEW_NUM &&
             images.slice(0, numberOfImgs).map((photo: ImageFormat, index) => (
-              <ImageWrap
-                key={index}
-                onClick={() => openCarousel(index)}
-                data-testid="imgWrap"
-              >
+              <ImageWrap key={index} data-testid="imgWrap">
                 <ImageItem
                   id={`${index}`}
                   src={photo.url || "default.jpg"}
                   alt={photo?.alt || "photo"}
                   data-testid="imgItem"
                   role="img"
+                  onClick={() => openCarousel(index)}
                 />
               </ImageWrap>
             ))}

@@ -28,6 +28,7 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
         {imgList.map((item, idx) => (
           <ImageSlider
             key={idx}
+            aria-label={`img-slider-${idx}`}
             src={item.url}
             alt={item.alt}
             style={{
