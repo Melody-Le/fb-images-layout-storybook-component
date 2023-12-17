@@ -54,6 +54,7 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
               onClick={() => {
                 setImgIndex(index);
               }}
+              data-active={true}
             />
           ) : (
             <IndicatorButtonInactive
@@ -63,6 +64,7 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
               onClick={() => {
                 setImgIndex(index);
               }}
+              data-active={false}
             />
           )
         )}

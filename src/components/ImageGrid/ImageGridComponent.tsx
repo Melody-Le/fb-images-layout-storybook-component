@@ -40,7 +40,8 @@ export const ImageGridComponent = ({
   const [selectedImgIndex, setSelectedImgIndex] = useState<number>(-1);
   const newRef = useRef<HTMLInputElement>(null);
 
-  const numberOfImgs = images.length;
+  console.log(images);
+  const numberOfImgs = images?.length;
 
   // useEffect to setup all initial render
   useEffect(() => {
@@ -101,6 +102,7 @@ export const ImageGridComponent = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   });
+  console.log("haha");
 
   return (
     <>
@@ -177,12 +179,10 @@ const ImageItem = styled.img`
 `;
 
 let ImageWrap = styled.div<StyledImageWrap>`
-  height: "100%",
-  overflow: "hidden",
-  position: "relative",
-  textAlign: "center",
-  color: "blue",
-  backgroundColor: "yellow",
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  textalign: center;
 `;
 
 const ImageGrid = styled.div<StyledImageGrid>`
