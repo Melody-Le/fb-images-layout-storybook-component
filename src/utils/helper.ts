@@ -1,5 +1,6 @@
 import { userEvent, within } from "@storybook/testing-library";
 import { expect } from "@storybook/jest";
+import { act } from "react-dom/test-utils";
 
 const checkAllItemInList = (
   itemList: HTMLElement[],
@@ -84,4 +85,15 @@ export const testCarouselSecondClick = async (
     secondClickIndex,
     "data-visible"
   );
+};
+
+export const userPresESC = async (canvasElement: HTMLElement) => {
+  const canvas = within(canvasElement);
+
+  const event = new KeyboardEvent("keydown", { key: "Escape" });
+  act(() => {
+    document.dispatchEvent(event);
+  });
+  const imageGrid = canvas.getByTestId("imgGrid");
+  expect(imageGrid).toBeInTheDocument();
 };
