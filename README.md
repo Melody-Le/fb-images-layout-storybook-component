@@ -1,6 +1,6 @@
 # Getting Started with Facebook Images Layout
 
-Facebook-images-layout library which displays them in beautiful grids , iinspired from facebook
+Facebook-images-layout library which displays them in beautiful grids , inspired from facebook
 
 # Table of contents
 
@@ -11,34 +11,34 @@ Facebook-images-layout library which displays them in beautiful grids , iinspire
 # Installation
 
 - Using NPM
-  `npm i facebook-img-grid`
+  `npm i facebook-image-layout`
 
 # Demo
 
 ## can layout different number of images
 
-| Base Case                                                | One Image                                                   | Two Images                                                  |
-| -------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
-| <img src="./demo/base.png" alt="base case" width="400"/> | <img src="./demo/one-img.png" alt="one image" width="400"/> | <img src="./demo/two-imgs.png" alt="Two Imgs" width="400"/> |
+| Base Case                                                                                                             | One Image                                                                                                             | Two Images                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://i.pinimg.com/originals/3d/cd/57/3dcd5784293d23797383f7c31ada3f3f.jpg" alt="base case" width="400"/> | <img src="https://i.pinimg.com/originals/9a/25/f2/9a25f264642c532a0f46e1e19b0bcb14.jpg" alt="one image" width="400"/> | <img src="https://i.pinimg.com/originals/69/7b/1c/697b1cd5ce06199f77586e65c68fc154.jpg" alt="Two Imgs" width="400"/> |
 
-| Three Images                                                    | Four images                                                     | Five Images                                                     |
-| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| <img src="./demo/three-imgs.png" alt="three imgs" width="400"/> | <img src="./demo/four-imgs.png" alt="four images" width="400"/> | <img src="./demo/five-imgs.png" alt="Five images" width="400"/> |
+| Three Images                                                                                                           | Four images                                                                                                             | Five Images                                                                                                             |
+| ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| <img src="https://i.pinimg.com/originals/0c/3d/9d/0c3d9dc2e247b248388e6fcc17da5be7.jpg" alt="three imgs" width="400"/> | <img src="https://i.pinimg.com/originals/5f/6e/67/5f6e67d1267a1cd1edae67f20b1dfa0b.jpg" alt="four images" width="400"/> | <img src="https://i.pinimg.com/originals/71/f8/86/71f886bac9b735d6c770c82ef0b421da.jpg" alt="Five images" width="400"/> |
 
 ## Story interactions
 
-![test mobile responsive](./demo/testing.GIF)
+![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaXhtbGQ2a29zdXFsaWM1b3pvbjZqdDAyeGU3Nzh1NzNnYWp1aXMyaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/nmqMeymUfZrAXVMkKr/giphy.gif)
 
 ## Demo Carousel
 
-![test mobile responsive](./demo/carousel.GIF)
+![](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDY2aGxzMjZyN3JuYjZxYnNteXZzZzl1ZWl1eGY4ZmM1dTZyOW8xZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UDCvtPfAFTQP4Osehc/giphy.gif)
 
 # Basic Usage of Image Grid
 
 - For image grid of 1 image with modal
 
   ```
-  import { ImageGridComponent } from "facebook-img-grid";
+  import {ImageGridComponent} from "facebook-image-layout";
 
   function App() {
     return (
@@ -55,13 +55,13 @@ Facebook-images-layout library which displays them in beautiful grids , iinspire
     );
   }
 
-  export dafault App;
+  export default App;
   ```
 
 - For image grid of more than 5 images with modal
 
   ```
-  import { ImageGridComponent } from "facebook-img-grid";
+  import {ImageGridComponent} from "facebook-image-layout";
 
   function App() {
     return (
@@ -98,13 +98,13 @@ Facebook-images-layout library which displays them in beautiful grids , iinspire
     );
   }
 
-  export dafault App;
+  export default App;
   ```
 
 # props
 
-| Accepted props | type    | Description                                                                         |
-| -------------- | ------- | ----------------------------------------------------------------------------------- |
-| imagesGridMaxWidth      | string | set maximum Width for Image Grid Component |
-| imagesGridHeight      | string | set height for Image Grid Component |
-| images      | ImageFormat[{alt: string, url: string}] | List of Image Object with property: alt & url  |
+| Accepted props     | type                                    | Description                                   |
+| ------------------ | --------------------------------------- | --------------------------------------------- |
+| imagesGridMaxWidth | string                                  | set maximum Width for Image Grid Component    |
+| imagesGridHeight   | string                                  | set height for Image Grid Component           |
+| images             | ImageFormat[{alt: string, url: string}] | List of Image Object with property: alt & url |
