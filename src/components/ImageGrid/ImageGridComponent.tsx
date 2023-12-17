@@ -150,9 +150,12 @@ export const ImageGridComponent = ({
                     alt={photo?.alt || "photo"}
                   />
                   {index === MAX_PREVIEW_NUM - 1 && (
-                    <NumberOfRemainingImgs>
-                      + {numberOfImgs - MAX_PREVIEW_NUM}
-                    </NumberOfRemainingImgs>
+                    <>
+                      <Overlay />
+                      <NumberOfRemainingImgs>
+                        + {numberOfImgs - MAX_PREVIEW_NUM}
+                      </NumberOfRemainingImgs>
+                    </>
                   )}
                 </ImageWrap>
               ))}
@@ -173,7 +176,7 @@ const CarouselContainer = styled.div`
 
 const ImageItem = styled.img`
   object-fit: cover;
-  object-position: "center";
+  object-position: center;
   min-width: 100%;
   height: 100%;
 `;
@@ -209,6 +212,18 @@ const ImageGrid = styled.div<StyledImageGrid>`
     gap: 0.8 rem;
   }
 `;
+
+const Overlay = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+`;
 const NumberOfRemainingImgs = styled.p`
   position: absolute;
   top: 50%;
@@ -216,4 +231,7 @@ const NumberOfRemainingImgs = styled.p`
   transform: translate(-50%, -50%);
   color: white;
   font-size: 1.5rem;
+  text-shadow: 1px 1px 3px grey;
+  z-index: 100;
+  font-weight: 700;
 `;
