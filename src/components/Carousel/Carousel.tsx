@@ -23,7 +23,7 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
     setImgIndex(selectedImgIndex);
   }, [selectedImgIndex]);
 
-  useEffect(() => {}, [imgIndex]);
+  // useEffect(() => {}, [imgIndex]);
 
   return (
     <CarouselWrapper>
