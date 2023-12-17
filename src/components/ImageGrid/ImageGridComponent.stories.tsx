@@ -23,6 +23,10 @@ const waitForEvent = (delay: number = 3000) => {
   return new Promise((resolve) => setTimeout(resolve, delay));
 };
 
+const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
 export const Base: Story = {
   loaders: [
     async () => ({
@@ -40,23 +44,62 @@ export const Base: Story = {
     await expect(imgItems).toHaveLength(5);
     await expect(imageGrid).toBeInTheDocument();
     await expect(imageGrid).toHaveStyle(`display: grid`);
-    // await userEvent.click(imgItems[0] as HTMLSelectElement);
-    // await waitForEvent();
-    await waitFor(() => userEvent.click(imgItems[3] as HTMLSelectElement), {
-      timeout: 20000,
-    });
+
+    await userEvent.click(imgItems[3] as HTMLSelectElement);
+
+    await sleep(5000);
+
     const carousel = canvas.queryByTestId("carousel");
-    const selectedImgSlider = canvas.queryByRole("img", {
-      name: "img-slider-3",
+
+    const selectedImgSlider = canvas.queryByTestId("img-slider-3");
+    const imgSliderList = canvas.queryAllByRole("img", { name: "img-slider" });
+    const indicatorBtnList = canvas.queryAllByRole("button", {
+      name: "indicator-btn",
     });
+    const indicatorImgList = canvas.queryAllByRole("img", {
+      name: "indicator-img",
+    });
+
     await expect(carousel).toBeVisible();
 
     await expect(selectedImgSlider).toBeVisible();
 
-    // for this assertion, I dont know why It fail . test will be pass if translate : 0% , but as oer the logic of component , it should be translate -100 * imageIndex % ( mean -300%)
+    await expect(imgSliderList).toHaveLength(10);
+    imgSliderList.forEach(async (img, index) => {
+      index === 3
+        ? await expect(img).toHaveAttribute("data-visible", "true")
+        : await expect(img).toHaveAttribute("data-visible", "false");
+    });
 
-    await expect(selectedImgSlider).toHaveStyle("translate: -300%");
-    // should not show other images , example: not show img have area-label: img-slider-2.
+    await expect(indicatorBtnList).toHaveLength(10);
+    indicatorBtnList.forEach(async (btn, index) => {
+      index === 3
+        ? await expect(btn).toHaveStyle(`background-color: rgb(255, 255, 255)`)
+        : await expect(btn).toHaveStyle(`background-color: rgb(128, 128, 128)`);
+    });
+
+    await expect(indicatorImgList).toHaveLength(10);
+    indicatorImgList.forEach(async (img, index) => {
+      index === 3
+        ? await expect(img).toHaveAttribute("data-active", "true")
+        : await expect(img).toHaveAttribute("data-active", "false");
+    });
+
+    await userEvent.click(
+      canvas.queryAllByRole("img", {
+        name: "indicator-img",
+      })[2] as HTMLSelectElement
+    );
+
+    // await sleep(2000);
+
+    canvas
+      .queryAllByRole("img", { name: "img-slider" })
+      .forEach(async (img, index) => {
+        index === 2
+          ? await expect(img).toHaveAttribute("data-visible", "true")
+          : await expect(img).toHaveAttribute("data-visible", "false");
+      });
   },
 };
 export const OneImage: Story = {

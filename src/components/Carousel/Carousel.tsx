@@ -22,27 +22,34 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
   useEffect(() => {
     setImgIndex(selectedImgIndex);
   }, [selectedImgIndex]);
+
+  useEffect(() => {}, [imgIndex]);
+
   return (
     <CarouselWrapper>
       <ImageSliderContainer>
         {imgList.map((item, idx) => (
           <ImageSlider
             key={idx}
-            aria-label={`img-slider-${idx}`}
+            aria-label={`img-slider`}
             src={item.url}
             alt={item.alt}
             style={{
               translate: `${-100 * imgIndex}%`,
             }}
+            data-visible={idx === imgIndex ? true : false}
+            data-testid={`img-slider-${idx}`}
           />
         ))}
       </ImageSliderContainer>
       <SliderLeftBtn onClick={showPrevious} />
       <SliderRightBtn onClick={showNext} />
-      <IndicatorContainer>
+      <IndicatorBtnContainer>
         {imgList.map((_, index) =>
           index === imgIndex ? (
             <IndicatorButton
+              data-testid={`indicator-btn-${index}`}
+              aria-label="indicator-btn"
               key={index}
               onClick={() => {
                 setImgIndex(index);
@@ -50,6 +57,8 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
             />
           ) : (
             <IndicatorButtonInactive
+              data-testid={`indicator-btn-${index}`}
+              aria-label="indicator-btn"
               key={index}
               onClick={() => {
                 setImgIndex(index);
@@ -57,29 +66,30 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
             />
           )
         )}
-      </IndicatorContainer>
+      </IndicatorBtnContainer>
 
-      <IndicatorContainer>
+      <IndicatorImgContainer>
         {imgList.map((item, index) =>
           index === imgIndex ? (
             <IndicatorImg
+              aria-label="indicator-img"
               key={index}
               src={item.url}
-              onClick={() => {
-                setImgIndex(index);
-              }}
+              data-active={true}
             />
           ) : (
             <IndicatorImgInactive
+              aria-label="indicator-img"
               key={index}
               src={item.url}
               onClick={() => {
                 setImgIndex(index);
               }}
+              data-active={false}
             />
           )
         )}
-      </IndicatorContainer>
+      </IndicatorImgContainer>
     </CarouselWrapper>
   );
 }
@@ -89,6 +99,7 @@ export default Carousel;
 /*----------------------EMOTION STYLED---------------------- */
 
 const CarouselWrapper = styled.div`
+  width: 90vw;
   height: 100%;
   position: relative;
   display: flex;
@@ -107,6 +118,7 @@ const ImageSliderContainer = styled.div`
 `;
 
 const ImageSlider = styled.img`
+  flex-grow: 1;
   object-fit: contain;
   width: 100%;
   height: 100%;
@@ -136,6 +148,21 @@ const SliderRightBtn = styled(BsArrowRightCircleFill)`
 const IndicatorContainer = styled.div`
   display: flex;
   gap: 0.25rem;
+  align-items: center;
+`;
+
+const IndicatorBtnContainer = styled(IndicatorContainer)`
+  flex-basis: 1rem;
+`;
+
+const IndicatorImgContainer = styled(IndicatorContainer)`
+  flex-shrink: 0;
+  overflow-x: hidden;
+  flex-basis: 5rem;
+  padding: 1rem;
+  &:hover {
+    overflow-x: scroll;
+  }
 `;
 
 const IndicatorButton = styled.button`
@@ -161,13 +188,14 @@ const IndicatorImg = styled.img`
   outline: none;
   margin: 0 0.2rem;
   cursor: pointer;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   box-shadow: 0px 0px 5px #555;
   border: 2px yellow solid;
   border-radius: 0.5rem;
   transition: scale 100ms ease-in-out;
+  aspect-ratio: 1 / 1;
   &:hover {
     scale: 1.05;
     filter: saturate(0) brightness(0.7) contrast(3);
