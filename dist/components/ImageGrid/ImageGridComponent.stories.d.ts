@@ -1,0 +1,11 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import ImageGrid from "./ImageGridComponent";
+declare const meta: Meta<typeof ImageGrid>;
+export default meta;
+declare type Story = StoryObj<typeof meta>;
+export declare const Base: Story;
+export declare const OneImage: Story;
+export declare const TwoImages: Story;
+export declare const ThreeImages: Story;
+export declare const FourImages: Story;
+export declare const FiveImages: Story;

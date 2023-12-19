@@ -29,7 +29,7 @@ const MAX_PREVIEW_NUM = 5;
 
 /*----------------------MAIN COMPONENT---------------------- */
 
-const ImageGridComponent = ({
+export const ImageGridComponent = ({
   imagesGridMaxWidth,
   imagesGridHeight,
   images,
@@ -40,7 +40,8 @@ const ImageGridComponent = ({
   const [selectedImgIndex, setSelectedImgIndex] = useState<number>(-1);
   const newRef = useRef<HTMLInputElement>(null);
 
-  const numberOfImgs = images.length;
+  console.log(images);
+  const numberOfImgs = images?.length;
 
   // useEffect to setup all initial render
   useEffect(() => {
@@ -101,13 +102,16 @@ const ImageGridComponent = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   });
+  console.log("haha");
 
   return (
     <>
       {showCarousel ? (
-        <CarouselContainer ref={newRef}>
-          <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
-        </CarouselContainer>
+        <div data-testid="carousel">
+          <CarouselContainer ref={newRef}>
+            <Carousel imgList={images} selectedImgIndex={selectedImgIndex} />
+          </CarouselContainer>
+        </div>
       ) : (
         <ImageGrid
           height={imagesGridHeight}
@@ -115,13 +119,18 @@ const ImageGridComponent = ({
           numberOfImgs={numberOfImgs}
           row={rowCol.row}
           col={rowCol.col}
+          data-testid="imgGrid"
         >
           {numberOfImgs <= MAX_PREVIEW_NUM &&
             images.slice(0, numberOfImgs).map((photo: ImageFormat, index) => (
-              <ImageWrap key={index} onClick={() => openCarousel(index)}>
+              <ImageWrap key={index} data-testid="imgWrap">
                 <ImageItem
+                  id={`${index}`}
                   src={photo.url || "default.jpg"}
                   alt={photo?.alt || "photo"}
+                  data-testid="imgItem"
+                  role="img"
+                  onClick={() => openCarousel(index)}
                 />
               </ImageWrap>
             ))}
@@ -136,13 +145,17 @@ const ImageGridComponent = ({
                   onClick={() => openCarousel(index)}
                 >
                   <ImageItem
+                    id={`${index}`}
                     src={photo.url || "default.jpg"}
                     alt={photo?.alt || "photo"}
                   />
                   {index === MAX_PREVIEW_NUM - 1 && (
-                    <NumberOfRemainingImgs>
-                      + {numberOfImgs - MAX_PREVIEW_NUM}
-                    </NumberOfRemainingImgs>
+                    <>
+                      <Overlay />
+                      <NumberOfRemainingImgs>
+                        + {numberOfImgs - MAX_PREVIEW_NUM}
+                      </NumberOfRemainingImgs>
+                    </>
                   )}
                 </ImageWrap>
               ))}
@@ -163,18 +176,17 @@ const CarouselContainer = styled.div`
 
 const ImageItem = styled.img`
   object-fit: cover;
-  object-position: "center";
+  object-position: center;
   min-width: 100%;
   height: 100%;
 `;
 
 let ImageWrap = styled.div<StyledImageWrap>`
-  height: "100%",
-  overflow: "hidden",
-  position: "relative",
-  textAlign: "center",
-  color: "blue",
-  backgroundColor: "yellow",`;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  textalign: center;
+`;
 
 const ImageGrid = styled.div<StyledImageGrid>`
   display: grid;
@@ -184,6 +196,9 @@ const ImageGrid = styled.div<StyledImageGrid>`
   max-width: ${(props) => (props.maxWidth ? props.maxWidth : "")};
   gap: 0.3rem;
   margin: 0 auto;
+  cursor: pointer;
+  caret-color: transparent;
+
   ${BREAKPONITS.small} {
     gap: 0.4rem;
   }
@@ -197,6 +212,18 @@ const ImageGrid = styled.div<StyledImageGrid>`
     gap: 0.8 rem;
   }
 `;
+
+const Overlay = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+`;
 const NumberOfRemainingImgs = styled.p`
   position: absolute;
   top: 50%;
@@ -204,4 +231,7 @@ const NumberOfRemainingImgs = styled.p`
   transform: translate(-50%, -50%);
   color: white;
   font-size: 1.5rem;
+  text-shadow: 1px 1px 3px grey;
+  z-index: 100;
+  font-weight: 700;
 `;

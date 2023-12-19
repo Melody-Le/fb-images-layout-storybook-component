@@ -14,9 +14,6 @@ interface UnsplashPhotoFortmat {
 
 const useUnsplashApi = async (perPage: number = 10) => {
   try {
-    if (perPage === 1) {
-    }
-
     const url = perPage === 1 ? randomUnSplashUrl : unsplashUrl(perPage);
     const response = await axios.get(url);
     let data;
