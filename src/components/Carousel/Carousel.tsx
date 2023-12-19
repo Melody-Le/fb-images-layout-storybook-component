@@ -23,8 +23,6 @@ function Carousel({ imgList, selectedImgIndex }: ImageProps) {
     setImgIndex(selectedImgIndex);
   }, [selectedImgIndex]);
 
-  // useEffect(() => {}, [imgIndex]);
-
   return (
     <CarouselWrapper>
       <ImageSliderContainer>
@@ -200,7 +198,7 @@ const IndicatorImg = styled.img`
   aspect-ratio: 1 / 1;
   &:hover {
     scale: 1.05;
-    filter: saturate(0) brightness(0.7) contrast(3);
+    filter: saturate(0) brightness(0.7) contrastx(3);
     mix-blend-mode: multiply;
     filter: grayscale(0);
   }

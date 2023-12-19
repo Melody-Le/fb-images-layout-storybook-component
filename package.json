@@ -1,6 +1,6 @@
 {
   "name": "facebook-image-layout",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "This library is to build the layout for images what is similar to facebook images layout components",
   "author": "Melody Le",
   "private": false,

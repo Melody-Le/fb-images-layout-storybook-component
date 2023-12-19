@@ -1,2 +1,1 @@
-import ImageGridComponent from "./components/ImageGrid/ImageGridComponent";
-export { ImageGridComponent };
+export * from "./components/ImageGrid/ImageGridComponent";

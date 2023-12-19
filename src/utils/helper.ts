@@ -97,3 +97,4 @@ export const userPresESC = async (canvasElement: HTMLElement) => {
   const imageGrid = canvas.getByTestId("imgGrid");
   expect(imageGrid).toBeInTheDocument();
 };
+
