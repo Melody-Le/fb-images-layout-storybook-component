@@ -35,9 +35,6 @@ export const Base: Story = {
     imagesGridMaxWidth: "30rem",
     imagesGridHeight: "20rem",
   },
-  parameters: {
-    options: { selectedPanel: "storybook/interactions/panel" },
-  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
